@@ -1,0 +1,110 @@
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+   
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    /*padding: 16px; *//* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 5; /* Add a z-index if needed */
+   /*left: 50%;*/ /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+  
+	width:100%
+}
+	.triangle{
+	-webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
+	clip-path: polygon(50% 100%, 0 0, 100% 0);
+	background-color:rgb(211, 211, 211);
+
+	}
+.product{
+	width:100px;
+	border-color:white;
+	border-width:2px;
+	display: inline-block;
+	padding-left:10px;
+	padding-right:10px;
+	background-color:rgb(211, 211, 211);
+	cursor:pointer;
+}
+.box{
+	min-width:400px;	
+	height:auto;
+	padding-bottom:20px;
+	background-color:rgb(211, 211, 211);
+	text-align:center;
+	display: inline-block;
+	
+	
+}
+.detail{
+	width:800px;
+	margin:0 auto;
+	background-color:white;
+	padding-top:5px;
+	padding-bottom:10px;
+}
+.title{
+	text-align:center;
+	width:100%;
+	border-bottom-color:grey;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+	
+
+}
+.nutriImg{
+	height:100px;
+	width:200px;
+	text-align:center;
+	
+}
+.productImg{
+	display:block;
+	height:50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.pDescription{
+	border-color:white;
+	border-width:1px;
+	border-style:solid;
+	padding:2px;
+	height:100px;
+	background-image:url("https://static.openfoodfacts.org/images/products/20857554/front_fr.18.400.jpg");
+	background-size:     contain;
+    background-position: center;  
+	background-repeat:   repeat;
+}
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+   However, delay the fade out process for 2.5 seconds */
+   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+   animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}

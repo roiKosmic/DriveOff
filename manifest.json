@@ -1,0 +1,32 @@
+{
+    "name": "Auchan Open Food :)",
+    "version": "0.1",
+    "icons": {
+        "16": "/img/icons/icon_16.png",
+        "48": "/img/icons/icon_48.png",
+        "128": "/img/icons/icon_128.png"
+    },
+
+    "description": "Yay, I'm so useless.",
+    "permissions": [
+        "geolocation"
+    ],
+
+    "content_scripts": [
+        {
+            "matches": ["https://www.auchandrive.fr/*"],
+			"css": ["/css/myStyle.css"],
+			"run_at": "document_end",
+            "js": [
+                    "/js/external/jquery.js",
+                    "/js/content_script.js"
+                ]
+        }
+    ],
+	
+	"web_accessible_resources":[
+		"/img/*"
+	],
+
+    "manifest_version": 2
+}
