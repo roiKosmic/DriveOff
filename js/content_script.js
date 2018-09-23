@@ -8,10 +8,16 @@ var myContent = "<div class='detail'>"
 				+"	</div>"
 				+"	<div class='nutriTaux'>"
 				+	"<ul>"
-				+		"<li class='high'>Sucres</li>"
-				+		"<li class='moderate'>Sels</li>"
-				+		"<li class='low'>Graisses</li>"
-				+		"<li class='low'>Graisses sat.</li>"
+				+		"<li class='high' id='sucres'>Sucres:</li>"
+				+		"<li class='moderate' id='sels'>Sels:</li>"
+				+		"<li class='low' id='graisses'>Graisses:</li>"
+				+		"<li class='low' id='sgraisses'>Graisses sat.:</li>"
+				+   "</ul>" 
+				+"<ul>"
+				+		"<li id='sucres100g'>12.22</li>"
+				+		"<li id='sels100g'>44.22</li>"
+				+		"<li id='graisses100g'>34</li>"
+				+		"<li id='sgraisses100g'>23</li>"
 				+   "</ul>" 
 				+"  </div>"
 				+"  <div class='nutriAdditif'>"
@@ -138,8 +144,29 @@ function fillDetail(indice_){
 	var name = data_.products[indice_].product_name;
 	var nutriScore =  data_.products[indice_].nutrition_grade_fr;
 	var novaScore = data_.products[indice_].nova_groups;
-	console.log("nutriScore : " +nutriScore+" novaScore "+novaScore);
+	
+	var sugarLevel = data_.products[indice_].nutrient_levels["sugars"];
+	var saturatedFatLevel = data_.products[indice_].nutrient_levels["saturated-fat"];
+	var fatLevel = data_.products[indice_].nutrient_levels["fat"];
+	var saltLevel = data_.products[indice_].nutrient_levels["salt"];
+	
+	var sugar100g = Number(data_.products[indice_].nutriments["sugars_100g"]).toFixed(2);
+	var salt100g = Number(data_.products[indice_].nutriments["salt_100g"]).toFixed(2);
+	var fat100g = Number(data_.products[indice_].nutriments["fat_100g"]).toFixed(2);
+	var saturatedFat100g = Number(data_.products[indice_].nutriments["saturated-fat_100g"]).toFixed(2);
+
 	$(".detail").find(".title").html(name);
 	$(".detail").find("#nutriScore").attr("src",chrome.extension.getURL("/img/nutriscore-"+nutriScore+".svg"));
 	$(".detail").find("#novaScore").attr("src",chrome.extension.getURL("/img/nova-group-"+novaScore+".svg"));
+	
+	$(".detail").find('#sucres').attr("class",sugarLevel);
+	$(".detail").find('#sels').attr("class",saltLevel);
+	$(".detail").find('#graisses').attr("class",fatLevel);
+	$(".detail").find('#sgraisses').attr("class",saturatedFatLevel);
+	
+	$(".detail").find('#sucres100g').html(sugar100g);
+	$(".detail").find('#sels100g').html(salt100g);
+	$(".detail").find('#graisses100g').html(fat100g);
+	$(".detail").find('#sgraisses100g').html(saturatedFat100g);
+	
 }

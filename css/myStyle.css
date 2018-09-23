@@ -87,6 +87,9 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+ul{
+display: inline-block;
+}
 .pDescription{
 	border-color:white;
 	border-width:1px;
