@@ -41,12 +41,18 @@
 	
 }
 .detail{
-	width:800px;
+	/*width:800px;*/
+	
 	margin:0 auto;
+	max-width:1000px;
+	/*margin:0 auto;*/
 	background-color:white;
 	padding-top:5px;
 	padding-bottom:10px;
 	text-align:left;
+	border-top-color:rgb(105,105,105);
+	border-top-style:solid;
+	border-top-width:5px;	
 	
 }
 .title{
@@ -59,19 +65,38 @@
 	
 
 }
+.detailfooter{
+width:100%;
+background-color:rgb(105,105,105);
+height:5px;
+
+}
 .nutriImg{
 	height:100px;
 	width:200px;
 	display: inline-block;
 	vertical-align: top; 
-	border-left-width:1px;
-	border-left-style:solid;
-	border-bottom-color:grey;
+
 	
 }
 .nutriTaux{
 	height:100px;
-	width:200px;
+	min-width:140px;
+	margin-top:2px;
+	padding-left:5px;
+	padding-right:5px;
+	padding-top:10px;
+	vertical-align: top; 
+	display: inline-block;
+	border-left-width:1px;
+	border-left-style:solid;
+	border-left-color:grey;
+}
+
+.nutriAdditif{
+	height:100px;
+	
+	min-width:140px;
 	margin-top:2px;
 	padding-left:5px;
 	padding-top:10px;
@@ -79,7 +104,21 @@
 	display: inline-block;
 	border-left-width:1px;
 	border-left-style:solid;
-	border-bottom-color:grey;
+	border-left-color:grey;
+}
+.productBarCode{
+	float:right;
+	height:100px;
+	border-left-width:1px;
+	border-left-style:solid;
+	border-left-color:grey;
+	vertical-align: top; 
+	
+}
+#barcode{
+	height:80%;
+	width:80%;
+	float:left;
 }
 .productImg{
 	display:block;
@@ -88,8 +127,12 @@
 	margin-right: auto;
 }
 ul{
-display: inline-block;
+	float:left;
+	
+	vertical-align: top; 
 }
+
+
 .pDescription{
 	border-color:white;
 	border-width:1px;
@@ -101,13 +144,24 @@ display: inline-block;
     background-position: center;  
 	background-repeat:   repeat;
 }
-.nutriTaux li{
+.nutriTaux  li{
 	margin-bottom:12px;
 	font-size:12px;
+	
 	padding-left:12px;
 	background-size: 10px 10px;
 	background-repeat: no-repeat;
 	background-position: left center;
+}
+.nutriAdditif li{
+margin-bottom:12px;
+	font-size:12px;
+	vertical-align: top; 
+	padding-left:12px;
+	background-size: 10px 10px;
+	background-repeat: no-repeat;
+	background-position: left center;
+	margin-right:40px;
 }
 li.moderate{
 	background-image:url("https://static.openfoodfacts.org/images/misc/moderate.svg");

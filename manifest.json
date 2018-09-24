@@ -19,6 +19,7 @@
 			"run_at": "document_end",
             "js": [
                     "/js/external/jquery.js",
+					"/js/external/jbarcode.js",
                     "/js/content_script.js"
                 ]
         }

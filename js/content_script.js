@@ -21,7 +21,28 @@ var myContent = "<div class='detail'>"
 				+   "</ul>" 
 				+"  </div>"
 				+"  <div class='nutriAdditif'>"
+				+"<ul>"
+				+		"<li class='high' id='sucres'>Sucres:</li>"
+				+		"<li class='moderate' id='sels'>Sels:</li>"
+				+		"<li class='low' id='graisses'>Graisses:</li>"
+				+		"<li class='low' id='sgraisses'>Graisses sat.:</li>"
+				+   "</ul>" 
+				+"<ul>"
+				+		"<li class='high' id='sucres'>Sucres:</li>"
+				+		"<li class='moderate' id='sels'>Sels:</li>"
+				+		"<li class='low' id='graisses'>Graisses:</li>"
+				+		"<li class='low' id='sgraisses'>Graisses sat.:</li>"
+				+   "</ul>" 
+				+"<ul>"
+				+		"<li class='high' id='sucres'>Sucres:</li>"
+				+		"<li class='moderate' id='sels'>Sels:</li>"
+				+		"<li class='low' id='graisses'>Graisses:</li>"
+				+		"<li class='low' id='sgraisses'>Graisses sat.:</li>"
+				+   "</ul>" 
 				+"  </div>"
+				+"<div class='productBarCode'><img id='barcode'/>"
+				+"</div>"
+				+"<div class='detailfooter'></div>"	
 				+"</div>"
 				+"<div class='box'>"
 				+"<div id='productList'>"
@@ -128,7 +149,7 @@ $("#productList").empty();
 		
 	}
 	$(".product").on("mouseover",function(){
-		$(this).find(".triangle").css("background-color","white");
+		$(this).find(".triangle").css("background-color","rgb(105,105,105)");
 		var indice = $(this).attr("indice");
 		fillDetail(indice);
 		
@@ -154,7 +175,9 @@ function fillDetail(indice_){
 	var salt100g = Number(data_.products[indice_].nutriments["salt_100g"]).toFixed(2);
 	var fat100g = Number(data_.products[indice_].nutriments["fat_100g"]).toFixed(2);
 	var saturatedFat100g = Number(data_.products[indice_].nutriments["saturated-fat_100g"]).toFixed(2);
-
+	
+	var additivesArray = data_.products[indice_].additives_tags;
+	console.log(additivesArray);
 	$(".detail").find(".title").html(name);
 	$(".detail").find("#nutriScore").attr("src",chrome.extension.getURL("/img/nutriscore-"+nutriScore+".svg"));
 	$(".detail").find("#novaScore").attr("src",chrome.extension.getURL("/img/nova-group-"+novaScore+".svg"));
@@ -168,5 +191,19 @@ function fillDetail(indice_){
 	$(".detail").find('#sels100g').html(salt100g);
 	$(".detail").find('#graisses100g').html(fat100g);
 	$(".detail").find('#sgraisses100g').html(saturatedFat100g);
-	
+	var string="";
+	for(i=0;i<additivesArray.length;i+=4){
+		string += "<ul>";
+		console.log("i "+i);
+		j=i;
+		while(j<additivesArray.length && j < i+4){
+			console.log("j "+j);
+			string+="<li class='low'>"+additivesArray[j]+"</li>";
+			j++;
+		}
+		string +="</ul>";
+	}
+	console.log(string);
+	$(".detail").find(".nutriAdditif").html(string);
+	JsBarcode("#barcode", data_.products[indice_].code, {format: "EAN13"})
 }
