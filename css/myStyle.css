@@ -30,6 +30,10 @@
 	background-color:rgb(211, 211, 211);
 	cursor:pointer;
 }
+.openfood{
+	cursor:pointer;
+
+}
 .box{
 	min-width:400px;	
 	height:auto;

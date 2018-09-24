@@ -1,5 +1,6 @@
 var url = "https://fr.openfoodfacts.org/cgi/search.pl?search_simple=1&action=process&json=1";
 var _data;
+var inList=false;
 var myContent = "<div class='detail'>"
 				+"<div class='title'>Neo Biscuits cacaotés (vanille)</div>"	
 				+"	<div class='nutriImg'>"
@@ -53,9 +54,15 @@ $(document).ready(function()  {
    
 	var img = chrome.extension.getURL("/img/openFood.png"); 
 	 $("<div id='snackbar'>"+myContent+"</div>").appendTo("body");
+	 
+	 //Ajout dans la liste des produits sur le liste
 	$(".product-item__shortcuts").append("<img class='product-item__shortcutsButton  openfood' src='"+img+"'>");
 	
-		
+		//Ajout dans le cas d'une liste
+		if ( $( ".operations-area" ).length ) {
+			$(".operations-area").append("<img class='openfood' src='"+img+"'>");
+			inList=true;
+		}
 	
 	$(".detail").hide();
 	$("#snackbar").hide();
@@ -84,9 +91,16 @@ $(document).ready(function()  {
 	
 	$(".openfood").on("mouseenter",function(){
 		console.log("Openfood details");
-		var detail = $(this).closest("article").attr("data-name");
-		 var x = document.getElementById("snackbar");
-			//x.innerHTML=detail;
+		var detail;
+		if(!inList){
+			detail = $(this).closest("article").attr("data-name");
+		}else{
+			detail =$(this).parent(".operations-area").prevAll(".libelle-produit").find("span").html();
+			console.log("inlist");
+		}
+		console.log(detail);
+		var x = document.getElementById("snackbar");
+				//x.innerHTML=detail;
 		
 		var searchString = detail.replace(/x\d+/,"");
 		searchString = searchString.replace(/\d+(l|g|cl)/,"");
