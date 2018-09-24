@@ -158,7 +158,7 @@ ul{
 	background-position: left center;
 }
 .nutriAdditif li{
-margin-bottom:12px;
+	margin-bottom:12px;
 	font-size:12px;
 	vertical-align: top; 
 	padding-left:12px;
@@ -172,6 +172,9 @@ li.moderate{
 	
 
 
+}
+li.unknown{
+	background-image:url('chrome-extension://__MSG_@@extension_id__/img/unknown.png');
 }
 
 li.low{

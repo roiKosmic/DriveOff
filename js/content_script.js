@@ -206,17 +206,19 @@ function fillDetail(indice_){
 	$(".detail").find('#graisses100g').html(fat100g);
 	$(".detail").find('#sgraisses100g').html(saturatedFat100g);
 	var string="";
+	
 	for(i=0;i<additivesArray.length;i+=4){
 		string += "<ul>";
 		console.log("i "+i);
 		j=i;
 		while(j<additivesArray.length && j < i+4){
 			console.log("j "+j);
-			string+="<li class='low'>"+additivesArray[j]+"</li>";
+			string+="<li class='unknown'>"+additivesArray[j]+"</li>";
 			j++;
 		}
 		string +="</ul>";
 	}
+	
 	console.log(string);
 	$(".detail").find(".nutriAdditif").html(string);
 	JsBarcode("#barcode", data_.products[indice_].code, {format: "EAN13"})
