@@ -10,3 +10,4 @@ Fonctionne avec le site www.auchandrive.fr. Ajoute une icone sur les produits. S
 
 Première release en beta
 
+L'extension utilise les données d'openfoodfact https://fr.openfoodfacts.org/ et la librairie de génération de codebarre jsBarcode https://github.com/lindell/JsBarcode
