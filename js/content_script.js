@@ -152,28 +152,36 @@ $(document).ready(function()  {
 
 function fillList(){
 $("#productList").empty();
-	for(i=0;i<data_.products.length;i++){
+	if(data_.products.length > 0){ 
+		for(i=0;i<data_.products.length;i++){
 		
-		$("#productList").append("<div indice="+i+" class='product'>"
-				+"<div class='triangle'>&nbsp;</div>"
-				+"<div id='pimg_"+i+"' class='pDescription'></div>"
-				+"	</div>");
-		$("#pimg_"+i).css("background-image","url("+data_.products[i].image_url+")");
+			$("#productList").append("<div indice="+i+" class='product'>"
+					+"<div class='triangle'>&nbsp;</div>"
+					+"<div id='pimg_"+i+"' class='pDescription'></div>"
+					+"	</div>");
+				
+			if(data_.products[i].image_url===undefined){
+				$("#pimg_"+i).css("background-image","url("+chrome.extension.getURL('/img/unknown.jpg')+")");
+			}else{
+				$("#pimg_"+i).css("background-image","url("+data_.products[i].image_url+")");
+			}
 		
+		}
+		$(".product").on("mouseover",function(){
+			$(this).find(".triangle").css("background-color","rgb(105,105,105)");
+			var indice = $(this).attr("indice");
+			fillDetail(indice);
+		});
+
+		$(".product").on("mouseout",function(){
+			$(this).find(".triangle").css("background-color","rgb(211, 211, 211)");
+		
+		});
+	}else{
+		$("#productList").html("<div id='spinner'>La recherche n'a retourné aucun résultat</div>");
+		setTimeout(function(){ $("#snackbar").fadeOut("slow");; }, 2000);
 		
 	}
-	$(".product").on("mouseover",function(){
-		$(this).find(".triangle").css("background-color","rgb(105,105,105)");
-		var indice = $(this).attr("indice");
-		fillDetail(indice);
-		
-		
-	});
-
-	$(".product").on("mouseout",function(){
-		$(this).find(".triangle").css("background-color","rgb(211, 211, 211)");
-		
-	});
 }
 function fillDetail(indice_){
 	var name = data_.products[indice_].product_name;
@@ -193,8 +201,20 @@ function fillDetail(indice_){
 	var additivesArray = data_.products[indice_].additives_tags;
 	console.log(additivesArray);
 	$(".detail").find(".title").html(name);
-	$(".detail").find("#nutriScore").attr("src",chrome.extension.getURL("/img/nutriscore-"+nutriScore+".svg"));
-	$(".detail").find("#novaScore").attr("src",chrome.extension.getURL("/img/nova-group-"+novaScore+".svg"));
+	
+	if(nutriScore===undefined){
+		var nutriURL = chrome.extension.getURL("/img/unknown.jpg");
+	}else{
+		var nutriURL  = chrome.extension.getURL("/img/nutriscore-"+nutriScore+".svg");
+	}
+	$(".detail").find("#nutriScore").attr("src",nutriURL);
+	
+	if(novaScore===undefined){
+		var novaURL = chrome.extension.getURL("/img/unknown.jpg");
+	}else{
+		var novaURL  = chrome.extension.getURL("/img/nova-group-"+novaScore+".svg");
+	}
+	$(".detail").find("#novaScore").attr("src",novaURL);
 	
 	$(".detail").find('#sucres').attr("class",sugarLevel);
 	$(".detail").find('#sels').attr("class",saltLevel);
