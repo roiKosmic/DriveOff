@@ -50,6 +50,7 @@ var myContent = "<div class='detail'>"
 				+"<div id='productList'>"
 				+"<div id='spinner'>Collecte des données aurpès de OpenFoodFact...</div>"	
 				+"</div>"
+				+"<div class='searchBar'><div class='searchIcon'></div><div  class='inputSearch'><input id='inputBox' type='text'  value='Recherche...'><div class='closeIcon'></div></div></div>"
 				+"</div>";
 				
 				
@@ -141,25 +142,67 @@ $(document).ready(function()  {
 	
 	$(".detail").hide();
 	$("#snackbar").hide();
-	$(".box").on("mouseenter",function(){
-			$(".detail").fadeIn("slow");
+	$(".inputSearch").hide();
+	
+	$(".searchIcon").on("click",function(){
+			$(".inputSearch").show("slow");
+			
 	});
 	
+	$(".closeIcon").on("click",function(){
+			$(".inputSearch").hide("slow");
+			$('#inputBox').val("Recherche...");
+			$('#inputBox').text("Recherche...");
+	});
+
+	
 	$(".box").on("mouseleave",function(){
-		$(".detail").fadeOut("slow");
+		
 		var x = document.getElementById("snackbar");
 		$("#snackbar").fadeOut("slow");
+		$(".inputSearch").hide();
+		$('#inputBox').val("Recherche...");
+		$(".detail").hide();
 		$("#productList").html("<div id='spinner'>Collecte des données aurpès de OpenFoodFact...</div>");
 		console.log("leave box");
 	});
 	
+	$("#inputBox").on('focus', function() { $(this).select(); });
 	
+	 $('#inputBox').on('keypress', function (e) {
+         if(e.which === 13){
+
+            //Disable textbox to prevent multiple submit
+            $(this).attr("disabled", "disabled");
+			$("#productList").html("<div id='spinner'>Recherche en cours...</div>");
+			$(".detail").hide();
+			var manualSearch = url + "&search_terms="+encodeURIComponent($(this).val());
+			console.log("Manual search "+manualSearch);
+			data_ = [];
+            $.ajax({
+			url: manualSearch,
+		
+			error: function() {
+      
+			},
+			success: function(data) {
+			console.log(data);
+			data_ = data;
+			fillList();
+			},
+			type: 'GET'
+		});
+
+            //Enable the textbox again if needed.
+            $(this).removeAttr("disabled");
+         }
+   });
 	
 	
 	$(".openfood").on("mouseenter",function(){
 		console.log("Openfood details");
-		
-		
+		$("#productList").empty();
+		$("#productList").html("<div id='spinner'>Collecte des données aurpès de OpenFoodFact...</div>");
 		switch (driveSite){
 		case "www.auchandrive.fr":
 			 var queryURL = getAuchanDriveQueryURL($(this));
@@ -168,7 +211,7 @@ $(document).ready(function()  {
 		}
 		
 		console.log(queryURL);
-		
+		data_ = [];
 		$.ajax({
 			url: queryURL,
 		
@@ -216,14 +259,17 @@ $("#productList").empty();
 			var indice = $(this).attr("indice");
 			fillDetail(indice);
 		});
-
+		
+		$(".product").on("mouseenter",function(){
+			$(".detail").fadeIn("slow");
+		});
+		
 		$(".product").on("mouseout",function(){
 			$(this).find(".triangle").css("background-color","rgb(211, 211, 211)");
-		
 		});
 	}else{
 		$("#productList").html("<div id='spinner'>La recherche n'a retourné aucun résultat</div>");
-		setTimeout(function(){ $("#snackbar").fadeOut("slow");; }, 2000);
+		//setTimeout(function(){ $("#snackbar").fadeOut("slow");; }, 2000);
 		
 	}
 }
@@ -273,18 +319,14 @@ function fillDetail(indice_){
 	
 	for(i=0;i<additivesArray.length;i+=4){
 		string += "<ul>";
-		console.log("i "+i);
 		j=i;
 		while(j<additivesArray.length && j < i+4){
-			console.log("j "+j);
 			var additif = additivesArray[j].replace("en:e", "E");
 			string+="<li class='unknown'>"+additif+"</li>";
 			j++;
 		}
 		string +="</ul>";
 	}
-	
-	console.log(string);
 	$(".detail").find(".nutriAdditif").html(string);
 	JsBarcode("#barcode", data_.products[indice_].code, {format: "EAN13"})
 }

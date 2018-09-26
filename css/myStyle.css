@@ -4,7 +4,7 @@
     border-radius: 2px; /* Rounded borders */
     position: fixed; /* Sit on top of the screen */
     z-index: 5; /* Add a z-index if needed */
-    bottom: 30px; /* 30px from the bottom */
+    bottom: 15px; /* 30px from the bottom */
 	width:100%
 }
 .triangle{
@@ -30,12 +30,12 @@
 .box{
 	min-width:400px;	
 	height:auto;
-	padding-bottom:20px;
+	padding-bottom:10px;
 	background-color:rgb(211, 211, 211);
 	text-align:center;
 	display: inline-block;
 	margin:0 auto;
-	
+	border-radius:10px;
 }
 .detail{	
 	margin:0 auto;
@@ -173,6 +173,53 @@ li.low{
 }
 li.high{
 	background-image:url("https://static.openfoodfacts.org/images/misc/high.svg");
+}
+.searchBar{
+	width:100%;
+	text-align:center;
+	display: inline-block;
+	padding-top:15px;
+}
+.searchIcon{
+	background-image:url('chrome-extension://__MSG_@@extension_id__/img/search.png');
+	height:20px;
+	width:20px;
+	background-size:     contain;
+    background-position: center;  
+	border-radius: 50%;
+	background-color:white;
+	display: inline-block;
+	cursor:pointer;
+	vertical-align:center;
+}
+.inputSearch{
+	display: inline-block;
+	vertical-align:center;
+
+}
+.inputSearch input{
+	float:left;
+	vertical-align:center;
+	border-radius:5px;
+	border-color:white;
+	border-style:solid;
+	margin-right: 5px;
+	margin-left:5px;
+	margin-top:2px;
+	width:200px;
+}
+.closeIcon{
+	background-image:url('chrome-extension://__MSG_@@extension_id__/img/close.png');
+	height:20px;
+	width:20px;
+	background-size:     contain;
+    background-position: center;  
+	border-radius: 50%;
+	background-color:white;
+	float:left;
+	cursor:pointer;
+	padding-left:10px;
+	vertical-align:center;
 }
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
 #snackbar.show {
