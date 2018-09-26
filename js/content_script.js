@@ -1,6 +1,7 @@
 var url = "https://fr.openfoodfacts.org/cgi/search.pl?search_simple=1&action=process&json=1";
 var _data;
-var inList=false;
+var inListAuchan=false;
+var driveSite;
 var myContent = "<div class='detail'>"
 				+"<div class='title'>Neo Biscuits cacaotés (vanille)</div>"	
 				+"	<div class='nutriImg'>"
@@ -50,37 +51,82 @@ var myContent = "<div class='detail'>"
 				+"<div id='spinner'>Collecte des données aurpès de OpenFoodFact...</div>"	
 				+"</div>"
 				+"</div>";
-$(document).ready(function()  {
-   
+				
+				
+function addingExtensionToAuchanDrive(){
 	var img = chrome.extension.getURL("/img/openFood.png"); 
-	 $("<div id='snackbar'>"+myContent+"</div>").appendTo("body");
-	 
-	 //Ajout dans la liste des produits sur le liste
+	
+	//Ajout dans la liste des produits sur le liste
 	$(".product-item__shortcuts").append("<img class='product-item__shortcutsButton  openfood' src='"+img+"'>");
 	
-		//Ajout dans le cas d'une liste
-		if ( $( ".operations-area" ).length ) {
-			$(".operations-area").append("<img class='openfood' src='"+img+"'>");
-			inList=true;
+	//Ajout dans le cas d'une liste
+	if ( $( ".operations-area" ).length ) {
+		$(".operations-area").append("<img class='openfood' src='"+img+"'>");
+		inListAuchan=true;
+	}
+
+
+}
+
+function getAuchanDriveQueryURL(elm){
+	var detail;
+	if(!inListAuchan){
+			detail = elm.closest("article").attr("data-name");
+	}else{
+		detail =elm.parent(".operations-area").prevAll(".libelle-produit").find("span").html();
+		console.log("inlist");
+	}
+	console.log(detail);
+	var x = document.getElementById("snackbar");
+	
+	var searchString = detail.replace(/x\d+/,"");
+	searchString = searchString.replace(/\d+(l|g|cl)/,"");
+	searchString = searchString.replace(/\-/,"");
+	searchString = searchString.trim();
+	var split = searchString.split(" ");
+	searchString ="";
+	if(split.length<4){
+		for(i=0;i<split.length;i++){
+			searchString +=split[i];
+			searchString +=" ";
 		}
+	}else{
+		for(i=0;i<4;i++){
+			searchString +=split[i];
+			searchString +=" ";
+		}
+	}
+	searchString = searchString.trim();
+	searchString = encodeURIComponent(searchString);
+	console.log("SearchString: "+searchString);
+	var search = url+"&search_terms="+searchString;
+	return search;
+
+
+}
+$(document).ready(function()  {
+   
+   //Attaching extension bar to site
+   $("<div id='snackbar'>"+myContent+"</div>").appendTo("body");
+   
+	driveSite = document.domain;
+	
+	switch (driveSite){
+		case "www.auchandrive.fr":
+			addingExtensionToAuchanDrive();
+		break;
+	
+	}
 	
 	$(".detail").hide();
 	$("#snackbar").hide();
-	
-	
 	$(".box").on("mouseenter",function(){
-			
 			$(".detail").fadeIn("slow");
-			
 	});
 	
 	$(".box").on("mouseleave",function(){
-	
-			$(".detail").fadeOut("slow");
-			var x = document.getElementById("snackbar");
-		// Add the "show" class to DIV
-		//x.className = x.className.replace("show", "");
-		//setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1000);
+		$(".detail").fadeOut("slow");
+		var x = document.getElementById("snackbar");
 		$("#snackbar").fadeOut("slow");
 		$("#productList").html("<div id='spinner'>Collecte des données aurpès de OpenFoodFact...</div>");
 		console.log("leave box");
@@ -91,41 +137,18 @@ $(document).ready(function()  {
 	
 	$(".openfood").on("mouseenter",function(){
 		console.log("Openfood details");
-		var detail;
-		if(!inList){
-			detail = $(this).closest("article").attr("data-name");
-		}else{
-			detail =$(this).parent(".operations-area").prevAll(".libelle-produit").find("span").html();
-			console.log("inlist");
-		}
-		console.log(detail);
-		var x = document.getElementById("snackbar");
-				//x.innerHTML=detail;
 		
-		var searchString = detail.replace(/x\d+/,"");
-		searchString = searchString.replace(/\d+(l|g|cl)/,"");
-		searchString = searchString.replace(/\-/,"");
-		searchString = searchString.trim();
-		var split = searchString.split(" ");
-		searchString ="";
-		if(split.length<4){
-			for(i=0;i<split.length;i++){
-				searchString +=split[i];
-				searchString +=" ";
-			}
-		}else{
-			for(i=0;i<4;i++){
-				searchString +=split[i];
-				searchString +=" ";
-			}
+		
+		switch (driveSite){
+		case "www.auchandrive.fr":
+			 var queryURL = getAuchanDriveQueryURL($(this));
+		break;
+	
 		}
-		searchString = searchString.trim();
-		searchString = encodeURIComponent(searchString);
-		console.log("SearchString: "+searchString);
-		var search = url+"&search_terms="+searchString;
+		
 		
 		$.ajax({
-			url: search,
+			url: queryURL,
 		
 			error: function() {
       
