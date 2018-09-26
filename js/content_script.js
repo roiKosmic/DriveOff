@@ -79,17 +79,17 @@ function getAuchanDriveQueryURL(elm){
 	console.log(detail);
 	var x = document.getElementById("snackbar");
 	
-	var preFilter = ['auchan bio','auchan'];
+	//var preFilter = ['auchan bio','auchan'];
 	var blackListWords = ['une','un','des','de','au','aux','à','sur','de','d','l','s','par'];
 	
 	var productTitle = detail.replace(/x\d+/,"");
 	productTitle = productTitle.replace(/\d+(l|g|cl|kg)/,"");
 	productTitle = productTitle.trim().toLowerCase();
-	
+	/*
 	for (var i = 0; i < preFilter.length; i++) {
 		productTitle = productTitle.replace(preFilter[i], '');
 	}
-	
+	*/
 	var split = productTitle.split(/[, ;\.:\/!?"«»)(\*><]+/);
 	
 	var searchString ="";
@@ -103,6 +103,20 @@ function getAuchanDriveQueryURL(elm){
 			searchString +=" ";
 		}
 	}
+	var split = searchString.split(" ");
+	searchString = "";
+	if(split.length<4){
+		for(i=0;i<split.length;i++){
+			searchString +=split[i];
+			searchString +=" ";
+		}
+	}else{
+		for(i=0;i<4;i++){
+			searchString +=split[i];
+			searchString +=" ";
+		}
+	}
+	searchString = searchString.trim();
 	searchString = searchString.trim();
 	searchString = encodeURIComponent(searchString);
 	console.log("SearchString: "+searchString);
@@ -263,7 +277,8 @@ function fillDetail(indice_){
 		j=i;
 		while(j<additivesArray.length && j < i+4){
 			console.log("j "+j);
-			string+="<li class='unknown'>"+additivesArray[j]+"</li>";
+			var additif = additivesArray[j].replace("en:e", "E");
+			string+="<li class='unknown'>"+additif+"</li>";
 			j++;
 		}
 		string +="</ul>";
