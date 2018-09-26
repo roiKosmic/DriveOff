@@ -79,20 +79,27 @@ function getAuchanDriveQueryURL(elm){
 	console.log(detail);
 	var x = document.getElementById("snackbar");
 	
-	var searchString = detail.replace(/x\d+/,"");
-	searchString = searchString.replace(/\d+(l|g|cl)/,"");
-	searchString = searchString.replace(/\-/,"");
-	searchString = searchString.trim();
-	var split = searchString.split(" ");
-	searchString ="";
-	if(split.length<4){
-		for(i=0;i<split.length;i++){
-			searchString +=split[i];
-			searchString +=" ";
-		}
-	}else{
-		for(i=0;i<4;i++){
-			searchString +=split[i];
+	var preFilter = ['auchan bio','auchan'];
+	var blackListWords = ['une','un','des','de','au','aux','à','sur','de','d','l','s','par'];
+	
+	var productTitle = detail.replace(/x\d+/,"");
+	productTitle = productTitle.replace(/\d+(l|g|cl|kg)/,"");
+	productTitle = productTitle.trim().toLowerCase();
+	
+	for (var i = 0; i < preFilter.length; i++) {
+		productTitle = productTitle.replace(preFilter[i], '');
+	}
+	
+	var split = productTitle.split(/[, ;\.:\/!?"«»)(\*><]+/);
+	
+	var searchString ="";
+	for (i = 0; i < split.length; i++) { 
+		var words = split[i].split(/[\'-]+/);
+		
+		for (j = 0; j < words.length; j++) { 
+			if(blackListWords.indexOf(words[j]) !== -1){continue;}
+			if(words[j].length <= 1){continue;}
+			searchString +=words[j];
 			searchString +=" ";
 		}
 	}
@@ -146,6 +153,7 @@ $(document).ready(function()  {
 	
 		}
 		
+		console.log(queryURL);
 		
 		$.ajax({
 			url: queryURL,
@@ -160,7 +168,6 @@ $(document).ready(function()  {
 			},
 			type: 'GET'
 		});
-		
 		
 		// Add the "show" class to DIV
 		//x.className = "show";
