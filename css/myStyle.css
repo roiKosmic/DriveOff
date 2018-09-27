@@ -147,6 +147,7 @@ ul{
 	background-repeat: no-repeat;
 	background-position: left center;
 }
+
 .nutriAdditif li{
 	margin-bottom:12px;
 	font-size:12px;
@@ -156,6 +157,14 @@ ul{
 	background-repeat: no-repeat;
 	background-position: left center;
 	margin-right:40px;
+}
+
+#spinner{
+	font-size:12px;
+	padding-top:10px;
+}
+.additiveInfo{
+	font-size:12px;
 }
 li.moderate{
 	background-image:url("https://static.openfoodfacts.org/images/misc/moderate.svg");

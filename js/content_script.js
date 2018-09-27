@@ -317,16 +317,24 @@ function fillDetail(indice_){
 	$(".detail").find('#sgraisses100g').html(saturatedFat100g);
 	var string="";
 	
-	for(i=0;i<additivesArray.length;i+=4){
-		string += "<ul>";
-		j=i;
-		while(j<additivesArray.length && j < i+4){
-			var additif = additivesArray[j].replace("en:e", "E");
-			string+="<li class='unknown'>"+additif+"</li>";
-			j++;
+	var checkAdditivesFillIn = data_.products[indice_].states.search("ingredients-completed");
+	if(checkAdditivesFillIn !=-1){
+		
+		for(i=0;i<additivesArray.length;i+=4){
+			string += "<ul>";
+			j=i;
+			while(j<additivesArray.length && j < i+4){
+				var additif = additivesArray[j].replace("en:e", "E");
+				string+="<li class='unknown'>"+additif+"</li>";
+				j++;
+			}
+			string +="</ul>";
 		}
-		string +="</ul>";
+		if(additivesArray.length==0){string="<div class='additiveInfo'>Aucun additif</div>";}
+		$(".detail").find(".nutriAdditif").html(string);
+	}else{
+		$(".detail").find(".nutriAdditif").html("<div class='additiveInfo' >Additifs non renseignés.</div>");
 	}
-	$(".detail").find(".nutriAdditif").html(string);
+	
 	JsBarcode("#barcode", data_.products[indice_].code, {format: "EAN13"})
 }
