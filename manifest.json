@@ -7,9 +7,9 @@
         "128": "/img/icons/icon_128.png"
     },
 
-    "description": "Yay, I'm so useless.",
+    "description": "Add OpenFoodFact information when ordering on line !",
     "permissions": [
-        "geolocation"
+        
     ],
 
     "content_scripts": [
@@ -19,7 +19,7 @@
 			"run_at": "document_end",
             "js": [
                     "/js/external/jquery.js",
-					"/js/external/jbarcode.js",
+		    "/js/external/jbarcode.js",
                     "/js/content_script.js"
                 ]
         }
