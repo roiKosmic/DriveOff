@@ -3,9 +3,10 @@
     text-align: center; /* Centered text */
     border-radius: 2px; /* Rounded borders */
     position: fixed; /* Sit on top of the screen */
-    z-index: 5; /* Add a z-index if needed */
+    z-index: 999; /* Add a z-index if needed */
     bottom: 15px; /* 30px from the bottom */
-	width:100%
+	width:100%;
+	opacity:1;
 }
 .triangle{
 	-webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);

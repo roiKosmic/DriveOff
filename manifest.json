@@ -1,6 +1,6 @@
 {
     "name": "Drive Off",
-    "version": "0.4",
+    "version": "0.4.1",
     "icons": {
         "16": "/img/icons/icon_16.png",
         "48": "/img/icons/icon_48.png",
@@ -14,7 +14,7 @@
 
     "content_scripts": [
         {
-            "matches": ["https://www.auchandrive.fr/*"],
+            "matches": ["https://www.auchandrive.fr/*","https://*.leclercdrive.fr/*"],
 			"css": ["/css/myStyle.css"],
 			"run_at": "document_end",
             "js": [

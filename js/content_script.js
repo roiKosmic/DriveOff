@@ -53,10 +53,15 @@ var myContent = "<div class='detail'>"
 				+"<div class='searchBar'><div class='searchIcon'></div><div  class='inputSearch'><input id='inputBox' type='text'  value='Recherche...'><div class='closeIcon'></div></div></div>"
 				+"</div>";
 				
-				
+function addingExtensionToLeclerc(){
+	var img = chrome.extension.getURL("/img/openFood.png"); 
+	$(".divWCRS310_HD").append("<img class='openfood' src='"+img+"'>");
+	$("<div id='snackbar'>"+myContent+"</div>").appendTo("form");
+}
 function addingExtensionToAuchanDrive(){
 	var img = chrome.extension.getURL("/img/openFood.png"); 
-	
+	//Attaching extension bar to site
+   $("<div id='snackbar'>"+myContent+"</div>").appendTo("body");
 	//Ajout dans la liste des produits sur le liste
 	$(".product-item__shortcuts").append("<img class='product-item__shortcutsButton  openfood' src='"+img+"'>");
 	
@@ -65,6 +70,63 @@ function addingExtensionToAuchanDrive(){
 		$(".operations-area").append("<img class='openfood' src='"+img+"'>");
 		inListAuchan=true;
 	}
+
+
+}
+
+function getLeclercDriveQueryURL(elm){
+	var detail;
+
+	detail =elm.parent(".divWCRS310_HD").prevAll(".pWCRS310_Desc").find("a").html();
+	console.log("Detail leclerc :");
+	
+	console.log(detail);
+	var x = document.getElementById("snackbar");
+	
+	//var preFilter = ['auchan bio','auchan'];
+	var blackListWords = ['une','un','des','de','au','aux','à','sur','de','d','l','s','par','br'];
+	
+	var productTitle = detail.replace(/x\d+/,"");
+	productTitle = productTitle.replace(/\d+(l|g|cl|kg)/,"");
+	productTitle = productTitle.trim().toLowerCase();
+	/*
+	for (var i = 0; i < preFilter.length; i++) {
+		productTitle = productTitle.replace(preFilter[i], '');
+	}
+	*/
+	var split = productTitle.split(/[, ;\.:\/!?"«»)(\*><]+/);
+	
+	var searchString ="";
+	for (i = 0; i < split.length; i++) { 
+		var words = split[i].split(/[\'-]+/);
+		
+		for (j = 0; j < words.length; j++) { 
+			if(blackListWords.indexOf(words[j]) !== -1){continue;}
+			if(words[j].length <= 1){continue;}
+			searchString +=words[j];
+			searchString +=" ";
+		}
+	}
+	var split = searchString.split(" ");
+	searchString = "";
+	if(split.length<4){
+		for(i=0;i<split.length;i++){
+			searchString +=split[i];
+			searchString +=" ";
+		}
+	}else{
+		for(i=0;i<4;i++){
+			searchString +=split[i];
+			searchString +=" ";
+		}
+	}
+	searchString = searchString.trim();
+	searchString = searchString.trim();
+	searchString = encodeURIComponent(searchString);
+	console.log("SearchString: "+searchString);
+	var search = url+"&search_terms="+searchString;
+	console.log("Search URL :"+search);
+	return search;
 
 
 }
@@ -129,8 +191,7 @@ function getAuchanDriveQueryURL(elm){
 }
 $(document).ready(function()  {
    
-   //Attaching extension bar to site
-   $("<div id='snackbar'>"+myContent+"</div>").appendTo("body");
+   
    
 	driveSite = document.domain;
 	
@@ -138,7 +199,10 @@ $(document).ready(function()  {
 		case "www.auchandrive.fr":
 			addingExtensionToAuchanDrive();
 		break;
-	
+		default:
+			console.log("Entering leclercdrive");
+			addingExtensionToLeclerc();
+		break;
 	}
 	
 	$(".detail").hide();
@@ -209,7 +273,10 @@ $(document).ready(function()  {
 		case "www.auchandrive.fr":
 			 var queryURL = getAuchanDriveQueryURL($(this));
 		break;
-	
+		
+		default:
+			var queryURL = getLeclercDriveQueryURL($(this));
+		break;
 		}
 		
 		console.log(queryURL);
