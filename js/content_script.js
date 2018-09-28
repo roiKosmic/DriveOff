@@ -1,4 +1,4 @@
-var url = "https://fr.openfoodfacts.org/cgi/search.pl?search_simple=1&action=process&json=1";
+var url = "https://fr.openfoodfacts.org/cgi/search.pl?search_simple=1&action=process&json=1&appversion="+encodeURIComponent(chrome.runtime.getManifest().version)+"&appid="+encodeURIComponent(chrome.runtime.getManifest().name);
 var _data;
 var inListAuchan=false;
 var driveSite;
@@ -122,6 +122,7 @@ function getAuchanDriveQueryURL(elm){
 	searchString = encodeURIComponent(searchString);
 	console.log("SearchString: "+searchString);
 	var search = url+"&search_terms="+searchString;
+	console.log("Search URL :"+search);
 	return search;
 
 
@@ -190,6 +191,7 @@ $(document).ready(function()  {
 			data_ = data;
 			fillList();
 			},
+	
 			type: 'GET'
 		});
 
@@ -223,6 +225,7 @@ $(document).ready(function()  {
 			data_ = data;
 			fillList();
 			},
+			
 			type: 'GET'
 		});
 		
