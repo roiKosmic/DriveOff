@@ -1,8 +1,8 @@
-# OpenFoodAuchanDriveChromeExt
-Chrome extension for AuchanDrive based on OpenFood Database
+# Drive Off
+Chrome extension for estore (drive) based on OpenFood Database
 
 ## Introduction
-Fonctionne avec le site www.auchandrive.fr. Ajoute une icone sur les produits. Si on glisse la souris sur l'icone openfood, une recherche est faite sur la base openfoodfact et les informations suivantes sont affichées:
+Fonctionne avec le site www.auchandrive.fr. (Autre drive à venir)  Ajoute une icone sur les produits. Si on glisse la souris sur l'icone openfood, une recherche est faite sur la base openfoodfact et les informations suivantes sont affichées:
 * Nutriscore
 * NovaLevel
 * Taux nutriments
@@ -22,3 +22,7 @@ L'extension utilise les données d'openfoodfact https://fr.openfoodfacts.org/ et
 * Cliquer sur "Chargez l'extension non empaquetée"
 * Sélectionner le dossier où vous avez décompressé la release téléchargée.
 * Enjoy !
+
+## Liste des drive compatibles
+* www.auchandrive.fr
+
