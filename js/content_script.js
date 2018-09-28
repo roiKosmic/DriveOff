@@ -391,7 +391,7 @@ function fillDetail(indice_){
 	if(checkAdditivesFillIn !=-1){
 		
 		for(i=0;i<additivesArray.length;i+=4){
-			string += "<ul>";
+			string += "<ul class='driveOffUl'>";
 			j=i;
 			while(j<additivesArray.length && j < i+4){
 				var additif = additivesArray[j].replace("en:e", "E");
