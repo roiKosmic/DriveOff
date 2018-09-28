@@ -9,13 +9,13 @@ var myContent = "<div class='detail'>"
 				+" 		<img class='productImg' id ='novaScore' src='https://static.openfoodfacts.org/images/misc/nova-group-4.svg'/>"
 				+"	</div>"
 				+"	<div class='nutriTaux'>"
-				+	"<ul>"
+				+	"<ul class='driveOffUl'>"
 				+		"<li class='high' id='sucres'>Sucres:</li>"
 				+		"<li class='moderate' id='sels'>Sels:</li>"
 				+		"<li class='low' id='graisses'>Graisses:</li>"
 				+		"<li class='low' id='sgraisses'>Graisses sat.:</li>"
 				+   "</ul>" 
-				+"<ul>"
+				+"<ul class='driveOffUl'>"
 				+		"<li id='sucres100g'>12.22</li>"
 				+		"<li id='sels100g'>44.22</li>"
 				+		"<li id='graisses100g'>34</li>"
@@ -194,12 +194,13 @@ $(document).ready(function()  {
    	//Attaching extension bar to site
    $("<div id='snackbar'>"+myContent+"</div>").appendTo("body");
 	driveSite = document.domain;
-	
-	switch (driveSite){
-		case "www.auchandrive.fr":
+	filteredDomain = driveSite.replace(/^([a-z]|[0-9]|\-)*\./,"");
+	console.log("drive is :"+filteredDomain);
+	switch (filteredDomain){
+		case "auchandrive.fr":
 			addingExtensionToAuchanDrive();
 		break;
-		default:
+		case "leclercdrive.fr"::
 			console.log("Entering leclercdrive");
 			addingExtensionToLeclerc();
 		break;
@@ -270,11 +271,11 @@ $(document).ready(function()  {
 		$("#productList").empty();
 		$("#productList").html("<div id='spinner'>Collecte des données aurpès de OpenFoodFact...</div>");
 		switch (driveSite){
-		case "www.auchandrive.fr":
+		case "auchandrive.fr":
 			 var queryURL = getAuchanDriveQueryURL($(this));
 		break;
 		
-		default:
+		case "leclercdrive.fr":
 			var queryURL = getLeclercDriveQueryURL($(this));
 		break;
 		}
