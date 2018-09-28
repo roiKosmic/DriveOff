@@ -56,12 +56,11 @@ var myContent = "<div class='detail'>"
 function addingExtensionToLeclerc(){
 	var img = chrome.extension.getURL("/img/openFood.png"); 
 	$(".divWCRS310_HD").append("<img class='openfood' src='"+img+"'>");
-	$("<div id='snackbar'>"+myContent+"</div>").appendTo("form");
+	
 }
 function addingExtensionToAuchanDrive(){
 	var img = chrome.extension.getURL("/img/openFood.png"); 
-	//Attaching extension bar to site
-   $("<div id='snackbar'>"+myContent+"</div>").appendTo("body");
+
 	//Ajout dans la liste des produits sur le liste
 	$(".product-item__shortcuts").append("<img class='product-item__shortcutsButton  openfood' src='"+img+"'>");
 	
@@ -192,7 +191,8 @@ function getAuchanDriveQueryURL(elm){
 $(document).ready(function()  {
    
    
-   
+   	//Attaching extension bar to site
+   $("<div id='snackbar'>"+myContent+"</div>").appendTo("body");
 	driveSite = document.domain;
 	
 	switch (driveSite){
