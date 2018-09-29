@@ -2,14 +2,14 @@
 Chrome extension for estore (drive) based on OpenFood Database
 
 ## Introduction
-Fonctionne avec le site www.auchandrive.fr. (Autre drive à venir)  Ajoute une icone sur les produits. Si on glisse la souris sur l'icone openfood, une recherche est faite sur la base openfoodfact et les informations suivantes sont affichées:
+Fonctionne avec le site www.auchandrive.fr et www.leclercdrive.fr (Autre drive à venir)  Ajoute une icone sur les produits. Si on glisse la souris sur l'icone openfood, une recherche est faite sur la base openfoodfact et les informations suivantes sont affichées:
 * Nutriscore
 * NovaLevel
 * Taux nutriments
 * Additifs
 * Code barre
 
-Première release en beta
+Premières releases en beta et non disponible sur le store des extnesions.
 
 L'extension utilise les données d'openfoodfact https://fr.openfoodfacts.org/ et la librairie de génération de codebarre jsBarcode https://github.com/lindell/JsBarcode
 
@@ -25,4 +25,5 @@ L'extension utilise les données d'openfoodfact https://fr.openfoodfacts.org/ et
 
 ## Liste des drive compatibles
 * www.auchandrive.fr
+* www.leclercdrive.fr
 
