@@ -69,8 +69,83 @@ function addingExtensionToAuchanDrive(){
 		$(".operations-area").append("<img class='openfood' src='"+img+"'>");
 		inListAuchan=true;
 	}
+}
+function addingObserverToLeclercDrive(){
 
+// The node to be monitored
+	if($("#ulListeProduits").length){
+	 var target = $("#ulListeProduits")[0];
 
+	// Create an observer instance
+	var observer = new MutationObserver(function( mutations ) {
+			mutations.forEach(function( mutation ) {
+				
+				var newNodes = mutation.addedNodes; // DOM NodeList
+				if( newNodes !== null ) { // If there are new nodes added
+						var $nodes = $( newNodes ); // jQuery set
+						var img = chrome.extension.getURL("/img/openFood.png"); 
+							$nodes.each(function() {
+								var $node = $( this );
+								
+								if( $node.hasClass( "liWCRS310_Product" ) ) {
+									console.log("product inserted in DOM");
+									$node.find(".divWCRS310_HD").append("<img class='openfood' src='"+img+"'>");
+									
+								}
+							});
+				}
+			}); 
+			bindOpenFoodIconEvent();
+	});
+
+	// Configuration of the observer:
+	var config = { 
+		attributes: true, 
+		childList: true, 
+		characterData: true 
+	};
+ 
+	// Pass in the target node, as well as the observer options
+	observer.observe(target, config);
+	}
+}
+function addingObserverToAuchanDrive(){
+	if($( "main" ).length){
+	// The node to be monitored
+	 var target = $( "main" )[0];
+
+	// Create an observer instance
+	var observer = new MutationObserver(function( mutations ) {
+			mutations.forEach(function( mutation ) {
+				
+				var newNodes = mutation.addedNodes; // DOM NodeList
+				if( newNodes !== null ) { // If there are new nodes added
+						var $nodes = $( newNodes ); // jQuery set
+						var img = chrome.extension.getURL("/img/openFood.png"); 
+							$nodes.each(function() {
+								var $node = $( this );
+								
+								if( $node.hasClass( "product-item" ) ) {
+									console.log("product inserted in DOM");
+									$node.find(".product-item__shortcuts").append("<img class='product-item__shortcutsButton  openfood' src='"+img+"'>");
+									
+								}
+							});
+				}
+			}); 
+			bindOpenFoodIconEvent();
+	});
+
+	// Configuration of the observer:
+	var config = { 
+		attributes: true, 
+		childList: true, 
+		characterData: true 
+	};
+ 
+	// Pass in the target node, as well as the observer options
+	observer.observe(target, config);
+	}
 }
 
 function getLeclercDriveQueryURL(elm){
@@ -78,54 +153,8 @@ function getLeclercDriveQueryURL(elm){
 
 	detail =elm.parent(".divWCRS310_HD").prevAll(".pWCRS310_Desc").find("a").html();
 	console.log("Detail leclerc :");
-	
 	console.log(detail);
-	var x = document.getElementById("snackbar");
-	
-	//var preFilter = ['auchan bio','auchan'];
-	var blackListWords = ['une','un','des','de','au','aux','à','sur','de','d','l','s','par','br'];
-	
-	var productTitle = detail.replace(/x\d+/,"");
-	productTitle = productTitle.replace(/\d+(l|g|cl|kg)/,"");
-	productTitle = productTitle.trim().toLowerCase();
-	/*
-	for (var i = 0; i < preFilter.length; i++) {
-		productTitle = productTitle.replace(preFilter[i], '');
-	}
-	*/
-	var split = productTitle.split(/[, ;\.:\/!?"«»)(\*><]+/);
-	
-	var searchString ="";
-	for (i = 0; i < split.length; i++) { 
-		var words = split[i].split(/[\'-]+/);
-		
-		for (j = 0; j < words.length; j++) { 
-			if(blackListWords.indexOf(words[j]) !== -1){continue;}
-			if(words[j].length <= 1){continue;}
-			searchString +=words[j];
-			searchString +=" ";
-		}
-	}
-	var split = searchString.split(" ");
-	searchString = "";
-	if(split.length<4){
-		for(i=0;i<split.length;i++){
-			searchString +=split[i];
-			searchString +=" ";
-		}
-	}else{
-		for(i=0;i<4;i++){
-			searchString +=split[i];
-			searchString +=" ";
-		}
-	}
-	searchString = searchString.trim();
-	searchString = searchString.trim();
-	searchString = encodeURIComponent(searchString);
-	console.log("SearchString: "+searchString);
-	var search = url+"&search_terms="+searchString;
-	console.log("Search URL :"+search);
-	return search;
+	return filterTitle(detail);
 
 
 }
@@ -139,21 +168,21 @@ function getAuchanDriveQueryURL(elm){
 		console.log("inlist");
 	}
 	console.log(detail);
-	var x = document.getElementById("snackbar");
 	
 	//var preFilter = ['auchan bio','auchan'];
+	
+	return filterTitle(detail);
+
+
+}
+
+function filterTitle(_title){
 	var blackListWords = ['une','un','des','de','au','aux','à','sur','de','d','l','s','par'];
 	
-	var productTitle = detail.replace(/x\d+/,"");
+	var productTitle = _title.replace(/x\d+/,"");
 	productTitle = productTitle.replace(/\d+(l|g|cl|kg)/,"");
 	productTitle = productTitle.trim().toLowerCase();
-	/*
-	for (var i = 0; i < preFilter.length; i++) {
-		productTitle = productTitle.replace(preFilter[i], '');
-	}
-	*/
 	var split = productTitle.split(/[, ;\.:\/!?"«»)(\*><]+/);
-	
 	var searchString ="";
 	for (i = 0; i < split.length; i++) { 
 		var words = split[i].split(/[\'-]+/);
@@ -185,8 +214,6 @@ function getAuchanDriveQueryURL(elm){
 	var search = url+"&search_terms="+searchString;
 	console.log("Search URL :"+search);
 	return search;
-
-
 }
 $(document).ready(function()  {
    
@@ -194,15 +221,17 @@ $(document).ready(function()  {
    	//Attaching extension bar to site
    $("<div id='snackbar'>"+myContent+"</div>").appendTo("body");
 	driveSite = document.domain;
-	filteredDomain = driveSite.replace(/^([a-z]|[0-9]|\-)*\./,"");
-	console.log("drive is :"+filteredDomain);
-	switch (filteredDomain){
+	driveSite = driveSite.replace(/^([a-z]|[0-9]|\-)*\./,"");
+	console.log("drive is :"+driveSite);
+	switch (driveSite){
 		case "auchandrive.fr":
 			addingExtensionToAuchanDrive();
+			addingObserverToAuchanDrive();
 		break;
-		case "leclercdrive.fr"::
+		case "leclercdrive.fr":
 			console.log("Entering leclercdrive");
 			addingExtensionToLeclerc();
+			addingObserverToLeclercDrive();
 		break;
 	}
 	
@@ -265,7 +294,13 @@ $(document).ready(function()  {
          }
    });
 	
-	
+	bindOpenFoodIconEvent();
+
+
+});
+
+function bindOpenFoodIconEvent(){
+
 	$(".openfood").on("mouseenter",function(){
 		console.log("Openfood details");
 		$("#productList").empty();
@@ -306,7 +341,7 @@ $(document).ready(function()  {
 	);
 	
 
-});
+}
 
 function fillList(){
 $("#productList").empty();
@@ -360,7 +395,7 @@ function fillDetail(indice_){
 	var saturatedFat100g = Number(data_.products[indice_].nutriments["saturated-fat_100g"]).toFixed(2);
 	
 	var additivesArray = data_.products[indice_].additives_tags;
-	console.log(additivesArray);
+	
 	$(".detail").find(".title").html(name);
 	
 	if(nutriScore===undefined){
