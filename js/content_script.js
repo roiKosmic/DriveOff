@@ -10,7 +10,7 @@ var myContent = "<div class='detail'>"
 				+"	</div>"
 				+"	<div class='nutriTaux'>"
 				+	"<ul class='driveOffUl'>"
-				+		"<li class='high' id='sucres'>Sucres:</li>"
+				+		"<li class='high ' id='sucres'>Sucres:</li>"
 				+		"<li class='moderate' id='sels'>Sels:</li>"
 				+		"<li class='low' id='graisses'>Graisses:</li>"
 				+		"<li class='low' id='sgraisses'>Graisses sat.:</li>"
@@ -23,19 +23,19 @@ var myContent = "<div class='detail'>"
 				+   "</ul>" 
 				+"  </div>"
 				+"  <div class='nutriAdditif'>"
-				+"<ul>"
+				+"<ul class='driveOffUl'>"
 				+		"<li class='high' id='sucres'>Sucres:</li>"
 				+		"<li class='moderate' id='sels'>Sels:</li>"
 				+		"<li class='low' id='graisses'>Graisses:</li>"
 				+		"<li class='low' id='sgraisses'>Graisses sat.:</li>"
 				+   "</ul>" 
-				+"<ul>"
+				+"<ul class='driveOffUl'>"
 				+		"<li class='high' id='sucres'>Sucres:</li>"
 				+		"<li class='moderate' id='sels'>Sels:</li>"
 				+		"<li class='low' id='graisses'>Graisses:</li>"
 				+		"<li class='low' id='sgraisses'>Graisses sat.:</li>"
 				+   "</ul>" 
-				+"<ul>"
+				+"<ul class='driveOffUl'>"
 				+		"<li class='high' id='sucres'>Sucres:</li>"
 				+		"<li class='moderate' id='sels'>Sels:</li>"
 				+		"<li class='low' id='graisses'>Graisses:</li>"
@@ -52,6 +52,12 @@ var myContent = "<div class='detail'>"
 				+"</div>"
 				+"<div class='searchBar'><div class='searchIcon'></div><div  class='inputSearch'><input id='inputBox' type='text'  value='Recherche...'><div class='closeIcon'></div></div></div>"
 				+"</div>";
+
+function addingExtensionToCarrefour(){
+	var img = chrome.extension.getURL("/img/openFood.png");
+	$(".product-card__body").append("<img class='openfood carrefour' src='"+img+"'>");
+
+}
 				
 function addingExtensionToLeclerc(){
 	var img = chrome.extension.getURL("/img/openFood.png"); 
@@ -109,6 +115,8 @@ function addingObserverToLeclercDrive(){
 	observer.observe(target, config);
 	}
 }
+
+
 function addingObserverToAuchanDrive(){
 	if($( "main" ).length){
 	// The node to be monitored
@@ -148,6 +156,41 @@ function addingObserverToAuchanDrive(){
 	}
 }
 
+function addingObserverToCarrefour(){
+	if($( "body" ).length){
+	// The node to be monitored
+	 var target = $( "body" )[0];
+
+	// Create an observer instance
+	var observer = new MutationObserver(function( mutations ) {
+			
+				var img = chrome.extension.getURL("/img/openFood.png");
+				$(".carrefour").remove();
+				$(".product-card__body").append("<img class='openfood carrefour' src='"+img+"'>");
+				
+				bindOpenFoodIconEvent();
+	});
+			
+
+	// Configuration of the observer:
+	var config = { 
+		attributes: true, 
+		childList: true, 
+		characterData: true,
+		
+	};
+ 
+	// Pass in the target node, as well as the observer options
+	observer.observe(target, config);
+	}
+}
+
+function getCarrefourQueryURL(elm){
+
+	detail = elm.parent(".product-card__body").parent("article").attr("id");
+	var _url = "https://fr.openfoodfacts.org/api/v0/product/"+detail+".json";
+	return _url;
+}
 function getLeclercDriveQueryURL(elm){
 	var detail;
 
@@ -233,7 +276,21 @@ $(document).ready(function()  {
 			addingExtensionToLeclerc();
 			addingObserverToLeclercDrive();
 		break;
+		
+		case "carrefour.fr":
+			console.log("Entering carrefour drive");
+			addingExtensionToCarrefour();
+			addingObserverToCarrefour();
+			
+		break;
 	}
+	bindEventToSnackbar();
+	bindOpenFoodIconEvent();
+
+
+});
+
+function bindEventToSnackbar(){
 	
 	$(".detail").hide();
 	$("#snackbar").hide();
@@ -293,12 +350,8 @@ $(document).ready(function()  {
             $(this).removeAttr("disabled");
          }
    });
-	
-	bindOpenFoodIconEvent();
 
-
-});
-
+}
 function bindOpenFoodIconEvent(){
 
 	$(".openfood").on("mouseenter",function(){
@@ -313,6 +366,11 @@ function bindOpenFoodIconEvent(){
 		case "leclercdrive.fr":
 			var queryURL = getLeclercDriveQueryURL($(this));
 		break;
+		
+		case "carrefour.fr":
+			var queryURL = getCarrefourQueryURL($(this));
+		break;
+		
 		}
 		
 		console.log(queryURL);
@@ -344,57 +402,87 @@ function bindOpenFoodIconEvent(){
 }
 
 function fillList(){
-$("#productList").empty();
-	if(data_.products.length > 0){ 
-		for(i=0;i<data_.products.length;i++){
-		
-			$("#productList").append("<div indice="+i+" class='product'>"
-					+"<div class='triangle'>&nbsp;</div>"
-					+"<div id='pimg_"+i+"' class='pDescription'></div>"
-					+"	</div>");
-				
-			if(data_.products[i].image_url===undefined){
-				$("#pimg_"+i).css("background-image","url("+chrome.extension.getURL('/img/unknown.jpg')+")");
-			}else{
-				$("#pimg_"+i).css("background-image","url("+data_.products[i].image_url+")");
-			}
-		
+	$("#productList").empty();
+	if(data_.products === undefined){
+		if(data_.status==1){ 
+				$("#productList").append("<div indice='0' class='product'>"
+						+"<div class='triangle'>&nbsp;</div>"
+						+"<div id='pimg_0' class='pDescription'></div>"
+						+"	</div>");
+					
+					if(data_.product.image_url===undefined){
+						$("#pimg_0").css("background-image","url("+chrome.extension.getURL('/img/unknown.jpg')+")");
+					}else{
+						$("#pimg_0").css("background-image","url("+data_.product.image_url+")");
+					}
+			
+		}else{
+			$("#productList").html("<div id='spinner'>La recherche n'a retourné aucun résultat</div>");
+			//setTimeout(function(){ $("#snackbar").fadeOut("slow");; }, 2000);
+			
 		}
-		$(".product").on("mouseover",function(){
-			$(this).find(".triangle").css("background-color","rgb(105,105,105)");
-			var indice = $(this).attr("indice");
-			fillDetail(indice);
-		});
-		
-		$(".product").on("mouseenter",function(){
-			$(".detail").fadeIn("slow");
-		});
-		
-		$(".product").on("mouseout",function(){
-			$(this).find(".triangle").css("background-color","rgb(211, 211, 211)");
-		});
+	
 	}else{
-		$("#productList").html("<div id='spinner'>La recherche n'a retourné aucun résultat</div>");
-		//setTimeout(function(){ $("#snackbar").fadeOut("slow");; }, 2000);
-		
+		if(data_.products.length > 0){ 
+			for(i=0;i<data_.products.length;i++){
+			
+				$("#productList").append("<div indice="+i+" class='product'>"
+						+"<div class='triangle'>&nbsp;</div>"
+						+"<div id='pimg_"+i+"' class='pDescription'></div>"
+						+"	</div>");
+					
+				if(data_.products[i].image_url===undefined){
+					$("#pimg_"+i).css("background-image","url("+chrome.extension.getURL('/img/unknown.jpg')+")");
+				}else{
+					$("#pimg_"+i).css("background-image","url("+data_.products[i].image_url+")");
+				}
+			
+			}
+			
+		}else{
+			$("#productList").html("<div id='spinner'>La recherche n'a retourné aucun résultat</div>");
+			//setTimeout(function(){ $("#snackbar").fadeOut("slow");; }, 2000);
+			
+		}
 	}
+	
+	$(".product").on("mouseover",function(){
+				$(this).find(".triangle").css("background-color","rgb(105,105,105)");
+				var indice = $(this).attr("indice");
+				fillDetail(indice);
+			});
+			
+			$(".product").on("mouseenter",function(){
+				$(".detail").fadeIn("slow");
+			});
+			
+			$(".product").on("mouseout",function(){
+				$(this).find(".triangle").css("background-color","rgb(211, 211, 211)");
+			});
+			
 }
 function fillDetail(indice_){
-	var name = data_.products[indice_].product_name;
-	var nutriScore =  data_.products[indice_].nutrition_grade_fr;
-	var novaScore = data_.products[indice_].nova_groups;
+	var product_;
+	if(data_.products === undefined){
+		product_ = data_.product;
+	}else{
+		product_ = data_.products[indice_];
+	}
+	var name = product_.product_name;
+	var nutriScore =  product_.nutrition_grade_fr;
+	var novaScore = product_.nova_groups;
 	
-	var sugarLevel = data_.products[indice_].nutrient_levels["sugars"];
-	var saturatedFatLevel = data_.products[indice_].nutrient_levels["saturated-fat"];
-	var fatLevel = data_.products[indice_].nutrient_levels["fat"];
-	var saltLevel = data_.products[indice_].nutrient_levels["salt"];
+	var sugarLevel = product_.nutrient_levels["sugars"];
+	var saturatedFatLevel = product_.nutrient_levels["saturated-fat"];
+	var fatLevel = product_.nutrient_levels["fat"];
+	var saltLevel = product_.nutrient_levels["salt"];
 	
-	var sugar100g = Number(data_.products[indice_].nutriments["sugars_100g"]).toFixed(2);
-	var salt100g = Number(data_.products[indice_].nutriments["salt_100g"]).toFixed(2);
-	var fat100g = Number(data_.products[indice_].nutriments["fat_100g"]).toFixed(2);
-	var saturatedFat100g = Number(data_.products[indice_].nutriments["saturated-fat_100g"]).toFixed(2);
+	var sugar100g = Number(product_.nutriments["sugars_100g"]).toFixed(2);
+	var salt100g = Number(product_.nutriments["salt_100g"]).toFixed(2);
+	var fat100g = Number(product_.nutriments["fat_100g"]).toFixed(2);
+	var saturatedFat100g = Number(product_.nutriments["saturated-fat_100g"]).toFixed(2);
 	
-	var additivesArray = data_.products[indice_].additives_tags;
+	var additivesArray = product_.additives_tags;
 	
 	$(".detail").find(".title").html(name);
 	
@@ -423,7 +511,7 @@ function fillDetail(indice_){
 	$(".detail").find('#sgraisses100g').html(saturatedFat100g);
 	var string="";
 	
-	var checkAdditivesFillIn = data_.products[indice_].states.search("ingredients-completed");
+	var checkAdditivesFillIn = product_.states.search("ingredients-completed");
 	if(checkAdditivesFillIn !=-1){
 		
 		for(i=0;i<additivesArray.length;i+=4){
@@ -442,5 +530,5 @@ function fillDetail(indice_){
 		$(".detail").find(".nutriAdditif").html("<div class='additiveInfo' >Additifs non renseignés.</div>");
 	}
 	
-	JsBarcode("#barcode", data_.products[indice_].code, {format: "EAN13"})
+	JsBarcode("#barcode", product_.code, {format: "EAN13"})
 }
