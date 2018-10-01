@@ -48,7 +48,7 @@ var myContent = "<div class='detail'>"
 				+"</div>"
 				+"<div class='box'>"
 				+"<div id='productList'>"
-				+"<div id='spinner'>Collecte des données aurpès de OpenFoodFact...</div>"	
+				+"<div id='spinner'>Collecte des données aurpès de Open Food Facts...</div>"	
 				+"</div>"
 				+"<div class='searchBar'><div class='searchIcon'></div><div  class='inputSearch'><input id='inputBox' type='text'  value='Recherche...'><div class='closeIcon'></div></div></div>"
 				+"</div>";
@@ -258,7 +258,7 @@ $(document).ready(function()  {
 		$(".inputSearch").hide();
 		$('#inputBox').val("Recherche...");
 		$(".detail").hide();
-		$("#productList").html("<div id='spinner'>Collecte des données aurpès de OpenFoodFact...</div>");
+		$("#productList").html("<div id='spinner'>Collecte des données aurpès de Open Food Facts...</div>");
 		console.log("leave box");
 	});
 	
@@ -304,7 +304,7 @@ function bindOpenFoodIconEvent(){
 	$(".openfood").on("mouseenter",function(){
 		console.log("Openfood details");
 		$("#productList").empty();
-		$("#productList").html("<div id='spinner'>Collecte des données aurpès de OpenFoodFact...</div>");
+		$("#productList").html("<div id='spinner'>Collecte des données aurpès de Open Food Facts...</div>");
 		switch (driveSite){
 		case "auchandrive.fr":
 			 var queryURL = getAuchanDriveQueryURL($(this));
