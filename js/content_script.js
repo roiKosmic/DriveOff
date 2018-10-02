@@ -55,6 +55,10 @@ var myContent = "<div class='detail'>"
 
 function addingExtensionToCarrefour(){
 	var img = chrome.extension.getURL("/img/openFood.png");
+	$(".nutriTaux").height("120");
+	$(".nutriAdditif").height("120");
+	$(".productBarCode").height("120");
+	$(".nutriImg").height("120");
 	$(".product-card__body").append("<img class='openfood carrefour' src='"+img+"'>");
 
 }
@@ -531,4 +535,5 @@ function fillDetail(indice_){
 	}
 	
 	JsBarcode("#barcode", product_.code, {format: "EAN13"})
+	
 }
