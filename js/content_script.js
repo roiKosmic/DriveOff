@@ -59,6 +59,11 @@ function addingExtensionToCarrefour(){
 	$(".nutriAdditif").height("120");
 	$(".productBarCode").height("120");
 	$(".nutriImg").height("120");
+	if($(".cd-ProductContainer").length){
+		console.log("In carrefour ooshop");
+		$(".cd-ProductVisual").append("<img class='openfood carrefour cd-ProductOrigin' src='"+img+"'>");
+		
+	}
 	$(".product-card__body").append("<img class='openfood carrefour' src='"+img+"'>");
 
 }
@@ -138,6 +143,7 @@ function addingObserverToAuchanDrive(){
 								var $node = $( this );
 								
 								if( $node.hasClass( "product-item" ) ) {
+								
 									console.log("product inserted in DOM");
 									$node.find(".product-item__shortcuts").append("<img class='product-item__shortcutsButton  openfood' src='"+img+"'>");
 									
@@ -161,16 +167,23 @@ function addingObserverToAuchanDrive(){
 }
 
 function addingObserverToCarrefour(){
+	
 	if($( "body" ).length){
 	// The node to be monitored
 	 var target = $( "body" )[0];
 
 	// Create an observer instance
 	var observer = new MutationObserver(function( mutations ) {
-			
+				console.log("carrefour dom mutation");
 				var img = chrome.extension.getURL("/img/openFood.png");
 				$(".carrefour").remove();
 				$(".product-card__body").append("<img class='openfood carrefour' src='"+img+"'>");
+				
+				if($(".cd-ProductContainer").length){
+					console.log("In carrefour ooshop");
+					$(".cd-ProductVisual").append("<img class='openfood carrefour cd-ProductOrigin' src='"+img+"'>");
+		
+				}
 				
 				bindOpenFoodIconEvent();
 	});
@@ -190,8 +203,13 @@ function addingObserverToCarrefour(){
 }
 
 function getCarrefourQueryURL(elm){
-
-	detail = elm.parent(".product-card__body").parent("article").attr("id");
+	if($(".cd-ProductContainer").length){
+		var obj = jQuery.parseJSON(elm.parent().find("a").attr("data-gldata"));
+		detail = obj.product_EAN;
+		console.log("Get from JSON attribute "+detail);
+	}else{
+		detail = elm.parent(".product-card__body").parent("article").attr("id");
+	}
 	var _url = "https://fr.openfoodfacts.org/api/v0/product/"+detail+".json";
 	return _url;
 }
@@ -225,10 +243,12 @@ function getAuchanDriveQueryURL(elm){
 
 function filterTitle(_title){
 	var blackListWords = ['une','un','des','de','au','aux','à','sur','de','d','l','s','par'];
-	
+
 	var productTitle = _title.replace(/x\d+/,"");
+	productTitle = productTitle.replace(/<[a-zA-Z]*>/,"");
 	productTitle = productTitle.replace(/\d+(l|g|cl|kg)/,"");
 	productTitle = productTitle.trim().toLowerCase();
+	console.log("Before splitting :"+productTitle);
 	var split = productTitle.split(/[, ;\.:\/!?"«»)(\*><]+/);
 	var searchString ="";
 	for (i = 0; i < split.length; i++) { 

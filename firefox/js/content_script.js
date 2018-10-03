@@ -59,6 +59,11 @@ function addingExtensionToCarrefour(){
 	$(".nutriAdditif").height("120");
 	$(".productBarCode").height("120");
 	$(".nutriImg").height("120");
+	if($(".cd-ProductContainer").length){
+		console.log("In carrefour ooshop");
+		$(".cd-ProductVisual").append("<img class='openfood carrefour cd-ProductOrigin' src='"+img+"'>");
+		
+	}
 	$(".product-card__body").append("<img class='openfood carrefour' src='"+img+"'>");
 
 }
@@ -172,6 +177,11 @@ function addingObserverToCarrefour(){
 				$(".carrefour").remove();
 				$(".product-card__body").append("<img class='openfood carrefour' src='"+img+"'>");
 				
+				if($(".cd-ProductContainer").length){
+					console.log("In carrefour ooshop");
+					$(".cd-ProductVisual").append("<img class='openfood carrefour cd-ProductOrigin' src='"+img+"'>");
+		
+				}
 				bindOpenFoodIconEvent();
 	});
 			
@@ -190,8 +200,14 @@ function addingObserverToCarrefour(){
 }
 
 function getCarrefourQueryURL(elm){
+	if($(".cd-ProductContainer").length){
+		var obj = jQuery.parseJSON(elm.parent().find("a").attr("data-gldata"));
+		detail = obj.product_EAN;
+		console.log("Get from JSON attribute "+detail);
+	}else{
 
-	detail = elm.parent(".product-card__body").parent("article").attr("id");
+		detail = elm.parent(".product-card__body").parent("article").attr("id");
+	}
 	var _url = "https://fr.openfoodfacts.org/api/v0/product/"+detail+".json";
 	return _url;
 }
@@ -227,6 +243,7 @@ function filterTitle(_title){
 	var blackListWords = ['une','un','des','de','au','aux','à','sur','de','d','l','s','par'];
 	
 	var productTitle = _title.replace(/x\d+/,"");
+	productTitle = productTitle.replace(/<[a-zA-Z]*>/,"");
 	productTitle = productTitle.replace(/\d+(l|g|cl|kg)/,"");
 	productTitle = productTitle.trim().toLowerCase();
 	var split = productTitle.split(/[, ;\.:\/!?"«»)(\*><]+/);
