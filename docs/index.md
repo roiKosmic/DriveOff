@@ -1,10 +1,11 @@
 ﻿# Description
 
-Drive Off est une extension **open source ** pour le navigateur Chrome (compatibilité firefox en cours) vous permettand de mieux consommer en affichant 
+Drive Off est une extension **open source** pour le navigateur Chrome (compatibilité firefox en cours) vous permettand de mieux consommer en affichant 
 en temps réel les informations de nutrition des produits que vous consultez sur les sites suivants:
 * www.auchandrive.fr
 * www.carrefourdrive.fr
 * www.leclercdrive.fr
+
 Les informations sont affichées sur le bandeau Drive Off.
 
 ## Le bandeau
@@ -20,7 +21,7 @@ Le bandeau DriveOff affiche pour un produit donné les informations suivantes:
 * Additif
 * Code barre du produit (pour scanner avec l'application Yuka par exemple)
 
-[Image du bandeau Drive Off](/img/bandeau.png)
+![](/img/bandeau.png)
 
 ## Les donn&eacute;es
 
