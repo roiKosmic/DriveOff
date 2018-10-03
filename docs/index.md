@@ -22,7 +22,7 @@ Le bandeau DriveOff affiche pour un produit donné les informations suivantes:
 * Code barre du produit (pour scanner avec l'application Yuka par exemple)
 
 ![](/img/bandeau.png)
-<img src="/img/bandeau.png"/>
+<img src="/DriveOff/img/bandeau.png"/>
 
 ## Les donn&eacute;es
 
