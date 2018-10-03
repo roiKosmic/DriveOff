@@ -11,7 +11,7 @@ Les informations sont affichées sur le bandeau Drive Off.
 
 ## Le bandeau
 
-Le bandeau DriveOff affiche pour un produit donné les informations suivantes:
+Le bandeau Drive Off affiche pour un produit donné les informations suivantes:
 * Nutri Score
 * Nova Score
 * Taux pour 100g des nutriments (Sucres, Sels, Graisses, Graisses saturées) avec code couleur
