@@ -37,7 +37,7 @@ img.carrefour {
 	width:50px;
 	opacity:1;
 	float:left;
-	z-index:9999;
+	z-index:50;
 }
 .box{
 	min-width:400px;	

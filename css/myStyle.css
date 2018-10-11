@@ -37,7 +37,7 @@ img.carrefour {
 	width:50px;
 	opacity:1;
 	float:left;
-	z-index:9999;
+	z-index:99;
 }
 .box{
 	min-width:400px;	
@@ -59,7 +59,8 @@ img.carrefour {
 	text-align:left;
 	border-top-color:rgb(105,105,105);
 	border-top-style:solid;
-	border-top-width:5px;	
+	border-top-width:5px;
+	z-index: 999;
 	
 }
 .title{
