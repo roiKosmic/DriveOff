@@ -472,30 +472,5 @@ DriveOff.prototype = {
 	//desc 	montre des erreur de code en alert si le debuggage est actif
 	showLog: function (msg) {
 		if (this.debug) { console.log(msg); }
-	},
-	
-	//@new_node	xml node (noeud à insérer)
-	//@node		xml node (noeud cible)
-	//desc		cette fonction "simule" une fonction insertAfter
-	insertAfter : function (new_node, node) {
-		//on determine le noeud parent
-		var parent_node = node.parentNode.parentNode;
-		//on determine le noeud suivant
-		var next_node = node.parentNode.nextSibling;
-
-		try
-		{
-			//si le noeud suivant n'existe pas cela signifie que node est le dernier est donc il suffit de faire un appendChild de parent_node
-			if (next_node === null) {
-				parent_node.appendChild(new_node,parent_node);
-			}
-			else {
-				parent_node.insertBefore(new_node,next_node);
-			}
-		}
-		catch(e)
-		{
-			this.showLog(e);
-		}
 	}
 };
