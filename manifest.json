@@ -1,6 +1,6 @@
 {
     "name": "Drive Off",
-    "version": "0.4.4",
+    "version": "1.0.0",
     "icons": {
         "16": "/img/icons/Drive_Off_1616.png",
         "48": "/img/icons/Drive_Off_4848.png",
@@ -20,7 +20,12 @@
             "js": [
                     "/js/external/jquery.js",
 		    "/js/external/jbarcode.js",
-                    "/js/content_script.js"
+                    "/js/content_script.js",
+                    "/js/driveOff.class.js",
+                    "/js/drive.class.js",
+                    "/js/drive/carrefourfr.js",
+                    "/js/drive/auchandrivefr.js",
+                    "/js/drive/leclercdrivefr.js"
                 ]
         }
     ],
