@@ -30,7 +30,7 @@ Drive Off est pour désormais en beta ouverte. Cliquer [ici](https://chrome.goog
 # Etapes du projet
 
 * Beta fermée jusqu'au 06 Novembre
-* Beta ouverte jusque fin Novemenre
+* Beta ouverte jusque fin Novembre
 * Version publique Chrome et Firefox prévue courant Décembre.
 
 # Contribuer
