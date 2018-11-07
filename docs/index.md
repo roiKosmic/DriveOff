@@ -25,19 +25,19 @@ Drive Off ne pourrait exister sans le projet libre Open Food Facts. Je vous invi
 
 # Installer Drive Off
 
-Drive Off est pour l'instant en beta fermée. Il faut vous inscrire au groupe suivant pour obtenir le lien de téléchargement de l'extension sur le Chrome Web Store. [Groupe des testeurs](https://groups.google.com/forum/#!forum/driveoff_extension)
+Drive Off est pour désormais en beta ouverte. Cliquer [ici](https://chrome.google.com/webstore/detail/drive-off/ngklhiipicmcedgamnopjkblbijbelnd) pour installer l'extension sur Chrome. La version firefox est en cours de développement. Rejoignez le [Groupe des testeurs](https://groups.google.com/forum/#!forum/driveoff_extension) pour partager vos retours.
 
 # Etapes du projet
 
-* Beta fermée jusqu'au 22 Octobre
-* Beta ouverte jusqu'au 30 Octobre
-* Version publique Chrome et Firefox prévue le 1er Novembre
+* Beta fermée jusqu'au 06 Novembre
+* Beta ouverte jusque fin Novemenre
+* Version publique Chrome et Firefox prévue courant Décembre.
 
 # Contribuer
 
 Vous pouvez contribuer de plusieus manière au développement de l'extension Drive Off.
 * En participant au codage (Adapter le code pour rendre l'extension compatible à d'autres drive par exemple, corriger des bugs)
-* En participant à la beta fermée
+* En participant à la beta ouverte et en rejoignant le groupe/forum afin de partager vos remarques.
 * En communiquant autour du projet.
 
 D'avance merci !
