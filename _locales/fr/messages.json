@@ -1,0 +1,44 @@
+﻿{
+	"extName":{
+		"message":"Drive OFF",
+		"description":"Extension name"
+	
+	},
+	"extDescription":{
+		"message":"Ajouter les informations OpenFoodFacts quand vous commandez en ligne",
+		"description":"Extension description"
+	},
+	"driveOff_waitingForInfo":{
+		"message":"Collecte des données auprès de Open Food Facts...",
+		"description":"waiting message when extension is gathering data from OFF api"
+	},
+	"driveOff_searchLabel":{
+		"message":"Recherche...",
+		"description":"input for search string label"
+	},
+	"driveOff_noResult":{
+		"message":"La recherche n'a retourné aucun résultat.",
+		"description":"no search result returned"
+	
+	},
+	"driveOff_noAdditive":{
+		"message":"Aucun additif",
+		"description": "No additive in the result"
+	},
+	"driveOff_additiveUnfilled":{
+		"message":"Additifs non renseignés",
+		"description": "Additive field not filled"
+	},
+	"driveOff_sugar":{
+		"message":"Sucres"
+	},
+	"driveOff_salt":{
+		"message":"Sels"
+	},
+	"driveOff_fat":{
+		"message":"Graisses"
+	},
+	"driveOff_sFat":{
+		"message":"Graisses sat."
+	}
+}

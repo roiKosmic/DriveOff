@@ -2,28 +2,35 @@ var carrefourfr = function() {
 	this.name = 'carrefourfr';
 	this.domain = 'carrefour.fr';
 	this.lang = 'fr';
-	this.selector = 'body';
+	this.selector = '.grid';
 };
 
 carrefourfr.prototype = new Drive('carrefourfr');
 
 carrefourfr.prototype.localMutationObserver=function(mutations,localThis){
-		console.log("carrefour dom mutation");
-		$(".carrefour").remove();
-		$(".product-card__body").append("<img class='openfood carrefour' src='"+this.DriveOffLocal.clickImgFile+"'>");
-					
-		if($(".cd-ProductContainer").length){
-			console.log("In carrefour ooshop");
-			$(".cd-ProductVisual").append("<img class='openfood carrefour cd-ProductOrigin' src='"+this.DriveOffLocal.clickImgFile+"'>");	
-		}
+		mutations.forEach(function( mutation ) {
+			console.log("mutation detected"+mutation.type);
+			var newNodes = mutation.addedNodes; // DOM NodeList
+				if( newNodes !== null ) { // If there are new nodes added
+					var $nodes = $( newNodes ); // jQuery set
+						$nodes.each(function() {
+							var $node = $( this );
+										
+							if( $node.hasClass( "grid-item" ) ) {
+								if($(".cd-ProductContainer").length){
+										console.log("In carrefour ooshop");
+										$node.find(".cd-ProductVisual").append("<img class='openfood carrefour cd-ProductOrigin' src='"+localThis.DriveOffLocal.clickImgFile+"'>");
+								}
+								$node.find(".product-card__body").append("<img class='openfood carrefour' src='"+localThis.DriveOffLocal.clickImgFile+"'>");
+							}
+						 });
+				}
+		});	
 };
   
 carrefourfr.prototype.addingExtension = function(){
 	console.log(this);
-		$(".nutriTaux").height("120");
-		$(".nutriAdditif").height("120");
-		$(".productBarCode").height("120");
-		$(".nutriImg").height("120");
+		
 		if($(".cd-ProductContainer").length){
 			console.log("In carrefour ooshop");
 			$(".cd-ProductVisual").append("<img class='openfood carrefour cd-ProductOrigin' src='"+this.DriveOffLocal.clickImgFile+"'>");
@@ -41,4 +48,15 @@ carrefourfr.prototype.getProductInfo=function(elm){
 		}
 		
 		this.EAN = detail;
+};
+
+carrefourfr.prototype.localAdaptUI = function(){
+	/*
+	$(".nutriTaux").find("li").css("margin-bottom","2px");
+	$(".nutriTaux").find("li").css("margin-top","2px");
+	$(".nutriTaux").find("li").css("padding-top","2px");
+	$(".nutriAdditif").find("li").css("margin-bottom","2px");
+	$(".nutriAdditif").find("li").css("margin-top","2px");
+	$(".nutriAdditif").find("li").css("padding-top","2px");
+	*/
 };

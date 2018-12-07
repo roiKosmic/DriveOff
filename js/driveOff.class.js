@@ -115,7 +115,7 @@ DriveOff.prototype = {
 		}
 		
 		this.attachExtensionBar();
-		
+		this.driveObject.adaptUI();
 		this.initDisplay();
 		
 		this.bindEventToSnackbar();
@@ -173,7 +173,7 @@ DriveOff.prototype = {
 		$(".openfood").on("mouseenter",function(){
 			console.log("Openfood details");
 			$("#productList").empty();
-			$("#productList").html("<div id='spinner'>Collecte des données auprès de Open Food Facts...</div>");
+			$("#productList").html("<div id='spinner'>"+chrome.i18n.getMessage("driveOff_waitingForInfo")+"</div>");
 			
 			DriveOffLocal.showLog(DriveOffLocal.driveDomain);
 			
@@ -223,9 +223,10 @@ DriveOff.prototype = {
 		});
 		
 		$(".closeIcon").on("click",function(){
+				var searchLabel = chrome.i18n.getMessage("driveOff_searchLabel");
 				$(".inputSearch").hide("slow");
-				$('#inputBox').val("Recherche...");
-				$('#inputBox').text("Recherche...");
+				$('#inputBox').val(searchLabel);
+				$('#inputBox').text(searchLabel);
 		});
 
 		
@@ -235,7 +236,7 @@ DriveOff.prototype = {
 			$(".inputSearch").hide();
 			$('#inputBox').val("Recherche...");
 			$(".detail").hide();
-			$("#productList").html("<div id='spinner'>Collecte des données auprès de Open Food Facts...</div>");
+			$("#productList").html("<div id='spinner'>"+chrome.i18n.getMessage("driveOff_waitingForInfo")+"</div>");
 			DriveOffLocal.showLog("leave box");
 		});
 		
@@ -246,9 +247,9 @@ DriveOff.prototype = {
 
 				//Disable textbox to prevent multiple submit
 				$(this).attr("disabled", "disabled");
-				$("#productList").html("<div id='spinner'>Recherche en cours...</div>");
+				$("#productList").html("<div id='spinner'>"+chrome.i18n.getMessage("driveOff_waitingForInfo")+"</div>");
 				$(".detail").hide();
-				var manualSearch = url + "&search_terms="+encodeURIComponent($(this).val());
+				var manualSearch = DriveOffLocal.buildURL("search",encodeURIComponent($(this).val()));
 				DriveOffLocal.showLog("Manual search "+manualSearch);
 				data_ = [];
 				$.ajax({
@@ -287,16 +288,16 @@ DriveOff.prototype = {
 				+"	</div>"
 				+"	<div class='nutriTaux'>"
 				+	"<ul class='driveOffUl'>"
-				+		"<li class='high ' id='sucres'>Sucres:</li>"
-				+		"<li class='moderate' id='sels'>Sels:</li>"
-				+		"<li class='low' id='graisses'>Graisses:</li>"
-				+		"<li class='low' id='sgraisses'>Graisses sat.:</li>"
+				+		"<li class='high ' id='sucres'>"+chrome.i18n.getMessage("driveOff_sugar")+":</li>"
+				+		"<li class='moderate' id='sels'>"+chrome.i18n.getMessage("driveOff_salt")+":</li>"
+				+		"<li class='low' id='graisses'>"+chrome.i18n.getMessage("driveOff_fat")+":</li>"
+				+		"<li class='low' id='sgraisses'>"+chrome.i18n.getMessage("driveOff_sFat")+":</li>"
 				+   "</ul>" 
 				+"<ul class='driveOffUl'>"
-				+		"<li id='sucres100g'>12.22</li>"
-				+		"<li id='sels100g'>44.22</li>"
-				+		"<li id='graisses100g'>34</li>"
-				+		"<li id='sgraisses100g'>23</li>"
+				+		"<li id='sucres100g' class='nutriTaux2'>12.22</li>"
+				+		"<li id='sels100g' class='nutriTaux2'>44.22</li>"
+				+		"<li id='graisses100g' class='nutriTaux2'>34</li>"
+				+		"<li id='sgraisses100g' class='nutriTaux2'>23</li>"
 				+   "</ul>" 
 				+"  </div>"
 				+"  <div class='nutriAdditif'>"
@@ -327,7 +328,7 @@ DriveOff.prototype = {
 				+"<div id='productList'>"
 				+"<div id='spinner'>Collecte des données auprès de Open Food Facts...</div>"	
 				+"</div>"
-				+"<div class='searchBar'><div class='searchIcon'></div><div  class='inputSearch'><input id='inputBox' type='text'  value='Recherche...'><div class='closeIcon'></div></div></div>"
+				+"<div class='searchBar'><div class='searchIcon'></div><div  class='inputSearch'><input id='inputBox' type='text'  value=''><div class='closeIcon'></div></div></div>"
 				+"</div>";
 	},
 	
@@ -338,29 +339,25 @@ DriveOff.prototype = {
 		var DriveOffLocal = this;
 		
 		$("#productList").empty();
+		
 		if(this.data.products === undefined){
 			if(this.data.status==1){ 
-					$("#productList").append("<div indice='0' class='product'>"
-							+"<div class='triangle'>&nbsp;</div>"
-							+"<div id='pimg_0' class='pDescription'></div>"
-							+"	</div>");
-						
-						if(this.data.product.image_url===undefined){
-							$("#pimg_0").css("background-image","url("+chrome.extension.getURL('/img/unknown.jpg')+")");
-						}else{
-							$("#pimg_0").css("background-image","url("+this.data.product.image_url+")");
-						}
-				
+					DriveOffLocal.fillDetail(0);
+					DriveOffLocal.driveObject.adaptUI();
+					$("#productList").hide();
+					$(".detail").fadeIn("slow");
+			
 			}else{
-				$("#productList").html("<div id='spinner'>La recherche n'a retourné aucun résultat</div>");
+				$("#productList").show();
+				$("#productList").html("<div id='spinner'>"+chrome.i18n.getMessage("driveOff_noResult")+"</div>");
 				//setTimeout(function(){ $("#snackbar").fadeOut("slow");; }, 2000);
 				
 			}
 		
 		}else{
-			if(this.data.products.length > 0){ 
+			if(this.data.products.length > 1){ 
 				for(i=0;i<this.data.products.length;i++){
-				
+					$("#productList").show();
 					$("#productList").append("<div indice="+i+" class='product'>"
 							+"<div class='triangle'>&nbsp;</div>"
 							+"<div id='pimg_"+i+"' class='pDescription'></div>"
@@ -373,9 +370,9 @@ DriveOff.prototype = {
 					}
 				
 				}
-				
 			}else{
-				$("#productList").html("<div id='spinner'>La recherche n'a retourné aucun résultat</div>");
+				$("#productList").show();
+				$("#productList").html("<div id='spinner'>"+chrome.i18n.getMessage("driveOff_noResult")+"</div>");
 				//setTimeout(function(){ $("#snackbar").fadeOut("slow");; }, 2000);
 				
 			}
@@ -386,6 +383,7 @@ DriveOff.prototype = {
 					var indice = $(this).attr("indice");
 					console.log('INDICE : '+indice);
 					DriveOffLocal.fillDetail(indice);
+					DriveOffLocal.driveObject.adaptUI();
 				});
 				
 				$(".product").on("mouseenter",function(){
@@ -436,10 +434,10 @@ DriveOff.prototype = {
 		}
 		$(".detail").find("#novaScore").attr("src",novaURL);
 		
-		$(".detail").find('#sucres').attr("class",sugarLevel);
-		$(".detail").find('#sels').attr("class",saltLevel);
-		$(".detail").find('#graisses').attr("class",fatLevel);
-		$(".detail").find('#sgraisses').attr("class",saturatedFatLevel);
+		$(".detail").find('#sucres').attr("class",sugarLevel+' nutriTaux2');
+		$(".detail").find('#sels').attr("class",saltLevel+' nutriTaux2');
+		$(".detail").find('#graisses').attr("class",fatLevel+' nutriTaux2');
+		$(".detail").find('#sgraisses').attr("class",saturatedFatLevel+' nutriTaux2');
 		
 		$(".detail").find('#sucres100g').html(sugar100g);
 		$(".detail").find('#sels100g').html(salt100g);
@@ -455,15 +453,15 @@ DriveOff.prototype = {
 				j=i;
 				while(j<additivesArray.length && j < i+4){
 					var additif = additivesArray[j].replace("en:e", "E");
-					string+="<li class='unknown'>"+additif+"</li>";
+					string+="<li class='unknown nutriTaux2'>"+additif+"</li>";
 					j++;
 				}
 				string +="</ul>";
 			}
-			if(additivesArray.length==0){string="<div class='additiveInfo'>Aucun additif</div>";}
+			if(additivesArray.length==0){string="<div class='additiveInfo'>"+chrome.i18n.getMessage("driveOff_noAdditive")+"</div>";}
 			$(".detail").find(".nutriAdditif").html(string);
 		}else{
-			$(".detail").find(".nutriAdditif").html("<div class='additiveInfo' >Additifs non renseignés.</div>");
+			$(".detail").find(".nutriAdditif").html("<div class='additiveInfo' >"+chrome.i18n.getMessage("driveOff_additiveUnfilled")+"</div>");
 		}
 		
 		JsBarcode("#barcode", product_.code, {format: "EAN13"})

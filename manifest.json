@@ -1,5 +1,5 @@
 {
-    "name": "Drive Off",
+    "name": "__MSG_extName__",
     "version": "1.0.0",
     "icons": {
         "16": "/img/icons/Drive_Off_1616.png",
@@ -7,9 +7,10 @@
         "128": "/img/icons/Drive_Off_128128.png"
     },
 
-    "description": "Add Open Food Facts information when ordering on line !",
+    "description": "__MSG_extDescription__",
+	"default_locale":"fr",
     "permissions": [
-        
+          "*://*.openfoodfacts.org/*"
     ],
 
     "content_scripts": [

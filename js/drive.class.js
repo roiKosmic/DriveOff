@@ -73,5 +73,12 @@ Drive.prototype = {
 		}else{
 			return this.DriveOffLocal.buildURL('search',this.DriveOffLocal.buildSearchString(this.searchTerms));
 		}
+	},
+	
+	adaptUI:function(){
+		var localThis = this;
+		if(typeof (localThis.localAdaptUI) == 'function'){
+			localThis.localAdaptUI(); 
+		}
 	}
 };
