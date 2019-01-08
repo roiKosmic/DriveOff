@@ -15,7 +15,7 @@
 
     "content_scripts": [
         {
-            "matches": ["https://www.auchandrive.fr/*","https://*.leclercdrive.fr/*", "https://*.carrefour.fr/*"],
+            "matches": ["https://www.auchandrive.fr/*","https://*.leclercdrive.fr/*", "https://*.carrefour.fr/*","https://*.chronodrive.com/*"],
 			"css": ["/css/myStyle.css"],
 			"run_at": "document_end",
             "js": [
@@ -26,7 +26,8 @@
                     "/js/drive.class.js",
                     "/js/drive/carrefourfr.js",
                     "/js/drive/auchandrivefr.js",
-                    "/js/drive/leclercdrivefr.js"
+                    "/js/drive/leclercdrivefr.js",
+					"/js/drive/chronodrivecom.js"
                 ]
         }
     ],
