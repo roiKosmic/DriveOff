@@ -1,0 +1,51 @@
+{
+  "extensionName": {
+    "message": "Drive Off",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Add Open Food Facts information when ordering on line.",
+    "description": "Description of the extension."
+  },
+
+  "messageDatacollection": {
+    "message": "Data collection from Open Food Fact...",
+    "description": "Informs the user that the request has been sent and that the results are being processed."
+  },
+
+  "messageDatasearch": {
+    "message": "Searching...",
+    "description": "Informe l'utilisateur que la recherche est en cours."
+  },
+
+  "messageSiteunavailable": {
+    "message": "This website is not available on DriveOFF",
+    "description": "Informe l'utilisateur que ce site ne fait pas partie des drives compatibles."
+  },
+
+  "messageEmptysearch": {
+    "message": "You must have a value if you want to search on OFF",
+    "description": ""
+  },
+
+  "labelSugar": {
+    "message": "Sugar",
+    "description": "Label to introduce sugar quantity into the product."
+  },
+
+  "labelSalt": {
+    "message": "Salt",
+    "description": "Label to introduce salt quantity into the product."
+  },
+
+  "labelFat": {
+    "message": "Fat",
+    "description": "Label to introduce fat quantity into the product."
+  },
+
+  "labelSaturatedfat": {
+    "message": "Saturated fat",
+    "description": "Label to introduce fat quantity into the product."
+  }
+}

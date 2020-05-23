@@ -1,0 +1,51 @@
+{
+  "extensionName": {
+    "message": "Drive Off",
+    "description": "Nom de l'extension."
+  },
+
+  "extensionDescription": {
+    "message": "Ajoute des informations issues d'Open Food Facts pendant vos courses en ligne.",
+    "description": "Description de l'extension."
+  },
+
+  "messageDatacollection": {
+    "message": "Collecte des données auprès de Open Food Facts...",
+    "description": "Informe l'utilisateur que la requête a bien été envoyée et que les résultats sont en cours de traitement."
+  },
+
+  "messageDatasearch": {
+    "message": "Recherche en cours...",
+    "description": "Informe l'utilisateur que la recherche est en cours."
+  },
+
+  "messageSiteunavailable": {
+    "message": "Ce site n'est pas compatible avec DriveOFF",
+    "description": "Informe l'utilisateur que ce site ne fait pas partie des drives compatibles."
+  },
+
+  "messageEmptysearch": {
+    "message": "Vous devez renseigner une valeur pour effectuer une recherche sur OFF",
+    "description": "Informe l'utilisateur que la valeur du champs recherche est obligatoire pour effectuer une recherche."
+  },
+
+  "labelSugar": {
+    "message": "Sucre",
+    "description": "Label pour introduire la quantité de sucre dans le produit."
+  },
+
+  "labelSalt": {
+    "message": "Sel",
+    "description": "Label pour introduire la quantité de sel dans le produit."
+  },
+
+  "labelFat": {
+    "message": "Matières grasses / Lipides",
+    "description": "Label pour introduire la quantité de matières grasses / lipides dans le produit."
+  },
+
+  "labelSaturatedfat": {
+    "message": "dont acides gras saturés",
+    "description": "Label pour introduire la quantité d'acides gras saturés dans le produit."
+  }
+}
