@@ -1,9 +1,16 @@
+/* RESET STYLES */
+.driveoff-ul{
+	padding-left:inherit;
+}
+
+img.driveoff-openfood{width:auto !important;}
+
 /* The snackbar - position it at the bottom and in the middle of the screen */
-#snackbar {
+#driveoff-snackbar {
     text-align: center; /* Centered text */
     border-radius: 2px; /* Rounded borders */
     position: fixed; /* Sit on top of the screen */
-    z-index: 999; /* Add a z-index if needed */
+    z-index: 99999; /* Add a z-index if needed */
     bottom: 15px; /* 30px from the bottom */
 	width:100%;
 	opacity:1;
@@ -12,13 +19,13 @@
 }
 
 
-.triangle{
+.driveoff-triangle{
 	-webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
 	clip-path: polygon(50% 100%, 0 0, 100% 0);
 	background-color:rgb(211, 211, 211);
+}
 
-	}
-.product{
+.driveoff-product{
 	width:100px;
 	border-color:white;
 	border-width:2px;
@@ -28,18 +35,12 @@
 	background-color:rgb(211, 211, 211);
 	cursor:pointer;
 }
-.openfood{
-	cursor:pointer;
 
+.driveoff-openfood{
+	cursor:pointer;
 }
-img.carrefour {
-	height:30px;
-	width:50px;
-	opacity:1;
-	float:left;
-	z-index:99;
-}
-.box{
+
+.driveoff-box{
 	min-width:400px;	
 	height:auto;
 	padding-bottom:10px;
@@ -49,7 +50,8 @@ img.carrefour {
 	margin:0 auto;
 	border-radius:10px;
 }
-.detail{	
+
+.driveoff-detail{	
 	margin:0 auto;
 	max-width:1000px;
 	height:auto;
@@ -59,11 +61,10 @@ img.carrefour {
 	text-align:left;
 	border-top-color:rgb(105,105,105);
 	border-top-style:solid;
-	border-top-width:5px;
-	z-index: 999;
+	border-top-width:5px;	
 	
 }
-.title{
+.driveoff-title{
 	text-align:center;
 	width:100%;
 	font-size:20px;
@@ -73,13 +74,20 @@ img.carrefour {
 	
 
 }
-.detailfooter{
+.driveoff-detailfooter{
 width:100%;
 background-color:rgb(105,105,105);
 height:5px;
 
 }
-.nutriImg{
+
+.driveoff-productImg{
+	max-height:50%;
+	display:block;
+	margin:0 auto;
+}
+
+.driveoff-nutriImg,.driveoff-nutriimg{
 	height:100px;
 	width:200px;
 	display: inline-block;
@@ -87,7 +95,7 @@ height:5px;
 	
 	
 }
-.nutriTaux{
+.driveoff-nutritaux{
 	height:100px;
 	min-width:140px;
 	margin-top:2px;
@@ -99,7 +107,7 @@ height:5px;
 	border-left-color:grey;
 }
 
-.nutriAdditif{
+.driveoff-nutriadditif{
 	height:100px;	
 	min-width:140px;
 	margin-top:2px;
@@ -110,7 +118,7 @@ height:5px;
 	border-left-style:solid;
 	border-left-color:grey;
 }
-.productBarCode{
+.driveoff-productbarcode{
 	float:right;
 	height:100px;
 	border-left-width:1px;
@@ -119,12 +127,12 @@ height:5px;
 	vertical-align: top; 
 	
 }
-#barcode{
+#driveoff-barcode{
 	height:80%;
 	width:80%;
 	float:left;
 }
-.productImg{
+.driveoff-productmg{
 	display:block;
 	height:46px;
 	margin-left: auto;
@@ -132,17 +140,20 @@ height:5px;
 	margin-bottom:2px;
 	margin-top:2px;
 }
-ul.driveOffUl{
+ul.driveoff-ul{
 	float:left;
-
 	vertical-align: top; 
 	margin-bottom:2px;
 	margin-top:2px;
 	
 }
 
+.driveoff-label{
+	padding-left:12px;
+	font-weight:bold;
+}
 
-.pDescription{
+.driveoff-pdescription{
 	border-color:white;
 	border-width:1px;
 	border-style:solid;
@@ -153,10 +164,9 @@ ul.driveOffUl{
     background-position: center;  
 	background-repeat:   repeat;
 }
-.nutriTaux  li{
-	margin-bottom:8px;
-	margin-top:8px;
-	margin-left:5px;
+.driveoff-nutritaux  li{
+	margin-bottom:4px;
+	margin-top:2px;
 	/*font-size:12px;*/
 	padding-top:2px;
 	list-style-type: none; 
@@ -167,7 +177,7 @@ ul.driveOffUl{
 }
 
 
-.nutriAdditif li{
+.driveoff-nutriadditif li{
 	/*font-size:12px;*/
 	vertical-align: top;
 	margin-bottom:8px;
@@ -182,39 +192,39 @@ ul.driveOffUl{
 	padding-top:2px;
 }
 
-#spinner{
+#driveoff-spinner{
 	/*font-size:12px;*/
 	padding-top:10px;
 }
-.additiveInfo{
+.driveoff-additiveinfo{
 	/*font-size:12px;*/
 	margin-top:8px;
 	padding-left:12px;
 }
-li.moderate{
+li.driveoff-moderate{
 	background-image:url("https://static.openfoodfacts.org/images/misc/moderate.svg");
 	
 
 
 }
-li.unknown{
+li.driveoff-unknown{
 	background-image:url('chrome-extension://__MSG_@@extension_id__/img/unknown.png');
 }
 
-li.low{
+li.driveoff-low{
 	background-image:url("https://static.openfoodfacts.org/images/misc/low.svg");
 
 }
-li.high{
+li.driveoff-high{
 	background-image:url("https://static.openfoodfacts.org/images/misc/high.svg");
 }
-.searchBar{
+.driveoff-searchbar{
 	width:100%;
 	text-align:center;
 	display: inline-block;
 	padding-top:15px;
 }
-.searchIcon{
+.driveoff-searchicon{
 	background-image:url('chrome-extension://__MSG_@@extension_id__/img/search.png');
 	height:20px;
 	width:20px;
@@ -226,12 +236,12 @@ li.high{
 	cursor:pointer;
 	vertical-align:center;
 }
-.inputSearch{
+.driveoff-inputsearch{
 	display: inline-block;
 	vertical-align:center;
 
 }
-.inputSearch input{
+.driveoff-inputsearch input{
 	float:left;
 	vertical-align:center;
 	border-radius:5px;
@@ -243,7 +253,7 @@ li.high{
 	width:200px;
 	height:20px;
 }
-.closeIcon{
+.driveoff-closeicon{
 	background-image:url('chrome-extension://__MSG_@@extension_id__/img/close.png');
 	height:20px;
 	width:20px;
@@ -257,7 +267,7 @@ li.high{
 	vertical-align:center;
 }
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
-#snackbar.show {
+#driveoff-snackbar.show {
     visibility: visible; /* Show the snackbar */
     /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
    However, delay the fade out process for 2.5 seconds */
