@@ -449,10 +449,10 @@ DriveOff.prototype = {
 		}
 		$(".driveoff-detail").find("#driveoff-novascore").attr("src",novaURL);
 		
-		$(".driveoff-detail").find('#driveoff-sucres').attr("class",sugarLevel);
-		$(".driveoff-detail").find('#driveoff-sels').attr("class",saltLevel);
-		$(".driveoff-detail").find('#driveoff-graisses').attr("class",fatLevel);
-		$(".driveoff-detail").find('#driveoff-sgraisses').attr("class",saturatedFatLevel);
+		$(".driveoff-detail").find('#driveoff-sucres').attr("class","driveoff-"+sugarLevel);
+		$(".driveoff-detail").find('#driveoff-sels').attr("class","driveoff-"+saltLevel);
+		$(".driveoff-detail").find('#driveoff-graisses').attr("class","driveoff-"+fatLevel);
+		$(".driveoff-detail").find('#driveoff-sgraisses').attr("class","driveoff-"+saturatedFatLevel);
 		
 		$(".driveoff-detail").find('#driveoff-sucres100g').html(sugar100g);
 		$(".driveoff-detail").find('#driveoff-sels100g').html(salt100g);
