@@ -464,7 +464,6 @@ DriveOff.prototype = {
 		if(checkAdditivesFillIn !=-1){
 			
 			for(i=0;i<additivesArray.length;i+=4){
-				string += '<div class="driveoff-label">Additifs</div>';
 				string += "<ul class='driveoff-ul'>";
 				j=i;
 				while(j<additivesArray.length && j < i+4){

@@ -1,6 +1,8 @@
 /* RESET STYLES */
 .driveoff-ul{
 	padding-left:inherit;
+	float:left;
+	vertical-align: top; 
 }
 
 img.driveoff-openfood{width:auto !important;}
