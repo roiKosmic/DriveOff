@@ -269,8 +269,8 @@ DriveOff.prototype = {
 				$(this).attr("disabled", "disabled");
 				$("#driveoff-productlist").html("<div id='driveoff-spinner'>"+chrome.i18n.getMessage("messageDatasearch")+"</div>");
 				$(".driveoff-detail").hide();
-				var manualSearch = url + "&search_terms="+encodeURIComponent($(this).val());
-				DriveOffLocal.showLog("Manual search "+manualSearch);
+				var manualSearch = DriveOffLocal.buildURL('search',encodeURIComponent($(this).val()));
+				 DriveOffLocal.showLog("Manual search "+manualSearch);
 				data_ = [];
 				$.ajax({
 				url: manualSearch,
@@ -337,7 +337,7 @@ DriveOff.prototype = {
 				<div id='driveoff-productlist'>
 				<div id='driveoff-spinner'>`+chrome.i18n.getMessage("messageDatacollection")+`</div>
 				</div>
-				<div class='driveoff-searchbar'><div class='searchIcon'></div>
+				<div class='driveoff-searchbar'><div class='driveoff-searchicon'></div>
 				<div  class='driveoff-inputsearch'><input id='driveoff-inputbox' type='text'  value='Recherche...'>
 				<div class='driveoff-closeicon'></div>
 				</div></div>
