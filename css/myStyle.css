@@ -5,7 +5,7 @@
 	vertical-align: top; 
 }
 
-img.driveoff-openfood{width:auto !important;}
+img.driveoff-openfood{width:auto !important;max-width:45px;}
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #driveoff-snackbar {
