@@ -2,7 +2,7 @@
     "manifest_version": 2,
 	"name": "__MSG_extensionName__",
 	"description": "__MSG_extensionDescription__",
-    "version": "0.9.0",
+    "version": "1.0.1",
     "homepage_url": "https://world.openfoodfacts.org/",
     "icons": {
         "16": "/img/icons/Drive_Off_1616.png",
@@ -26,6 +26,7 @@
 				"https://www.lidl.fr/*",
 				"https://www.picard.fr/*",
 				"https://livraison.thiriet.com/*",
+				"https://thiriet.com/*",
 				"https://www.aldi.fr/*"
 				],
 			"css": ["/css/myStyle.css"],

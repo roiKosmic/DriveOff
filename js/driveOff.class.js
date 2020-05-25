@@ -100,6 +100,9 @@ DriveOff.prototype = {
 		this.clickImgFileHTML = "<img class='driveoff-openfood' src='"+this.clickImgFile+"' />";
 		
 		this.driveDomain = document.domain.replace(/^([a-z]|[0-9]|\-)*\./,"");
+		if(this.driveDomain.indexOf('.') === -1){
+			this.driveDomain = document.domain;
+		}
 		this.driveClassName = this.driveDomain.replace(/\./,"");
 		
 		try {
@@ -125,7 +128,7 @@ DriveOff.prototype = {
 		
 		this.bindEventToSnackbar();
 		// doublon avec localThis.DriveOffLocal.bindOpenFoodIconEvent();
-		//this.bindOpenFoodIconEvent();
+		this.bindOpenFoodIconEvent();
 	},
 	
 	buildSearchString:function(title){
@@ -173,6 +176,10 @@ DriveOff.prototype = {
 	/* ***** BINDING Functions ****** */
 	
 	bindOpenFoodIconEvent:function (){
+		if(DriveOffBinds['bindOpenFoodIconEvent'] === undefined){DriveOffBinds['bindOpenFoodIconEvent']=0;}
+		if(DriveOffBinds['bindOpenFoodIconEvent'] >= 1){return;}
+		++DriveOffBinds['bindOpenFoodIconEvent'];
+		
 		// SAVE "this" reference for .on local use to avoir conflict between 2 different "this" references
 		var DriveOffLocal = this;
 		console.log("binding click");
