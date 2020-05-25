@@ -100,6 +100,9 @@ DriveOff.prototype = {
 		this.clickImgFileHTML = "<img class='driveoff-openfood' src='"+this.clickImgFile+"' />";
 		
 		this.driveDomain = document.domain.replace(/^([a-z]|[0-9]|\-)*\./,"");
+		if(this.driveDomain.indexOf('.') === -1){
+			this.driveDomain = document.domain;
+		}
 		this.driveClassName = this.driveDomain.replace(/\./,"");
 		
 		try {
