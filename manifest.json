@@ -26,6 +26,7 @@
 				"https://www.lidl.fr/*",
 				"https://www.picard.fr/*",
 				"https://livraison.thiriet.com/*",
+				"https://thiriet.com/*",
 				"https://www.aldi.fr/*"
 				],
 			"css": ["/css/myStyle.css"],
