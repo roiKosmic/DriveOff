@@ -3,6 +3,8 @@ var carrefourfr = function() {
 	this.domain = 'carrefour.fr';
 	this.lang = 'fr';
 	this.selector = 'body';
+	this.imgSrc ='';
+	this.clickImgFileHTML = "<ul class='driveoff-openfood product-badges-list'><li class='product-badges-list__item'><img  class='driveoff-openfood-img' src=''></li>"
 };
 
 carrefourfr.prototype = new Drive('carrefourfr');
@@ -10,32 +12,37 @@ carrefourfr.prototype = new Drive('carrefourfr');
 carrefourfr.prototype.localMutationObserver=function(mutations,localThis){
 		console.log("carrefour dom mutation");
 		
-		$(".carrefour").remove();
+		$(".driveoff-openfood").remove();
 		
 		if(typeof $(".product-card__twigwrap") === undefined){console.log(".product-card__twigwrap is undefined");}
 		else{console.log($(".product-card__twigwrap").innerHTML);}
 		
 		//$(".product-card__twigwrap").append(localThis.DriveOffLocal.clickImgFileHTML);
-		$(".ds-product-card").append(localThis.DriveOffLocal.clickImgFileHTML);
+		$(".ds-product-card").append(this.clickImgFileHTML);
 		
 		// ??	
 		if($(".cd-ProductContainer").length){
 			console.log("In carrefour ooshop");
-			$(".cd-ProductVisual").append(localThis.DriveOffLocal.clickImgFileHTML);	
+			$(".cd-ProductVisual").append(this.clickImgFileHTML);
 		}
+		
+		$(".driveoff-openfood-img").attr('src',this.DriveOffLocal.clickImgFile);
 };
   
 carrefourfr.prototype.addingExtension = function(){
 	//console.log(this);
-		$(".nutritaux").height("120");
+		/*$(".nutritaux").height("120");
 		$(".nutriadditif").height("120");
 		$(".productBarCode").height("120");
 		$(".nutriimg").height("120");
+		*/
+		
 		if($(".cd-ProductContainer").length){
 			console.log("In carrefour ooshop");
-			$(".cd-ProductVisual").append("<img class='driveoff-openfood cd-ProductOrigin' src='"+this.DriveOffLocal.clickImgFile+"'>");
+			$(".cd-ProductVisual").append(this.clickImgFileHTML);
 		}
-		$(".product-card__body").append(this.DriveOffLocal.clickImgFileHTML);
+	$(".ds-product-card").append(this.clickImgFileHTML);
+	$(".driveoff-openfood-img").attr('src',this.DriveOffLocal.clickImgFile);
 };
 	
 carrefourfr.prototype.getProductInfo=function(elm){

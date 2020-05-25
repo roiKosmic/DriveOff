@@ -111,8 +111,8 @@ DriveOff.prototype = {
 			// Avoid infinite loop into the object
 			this.driveObject = driveObject;
 			
-			this.driveObject.addingExtension();
-			this.driveObject.addingObserver();
+			this.driveObject.addingExtensionSuperClass();
+			this.driveObject.addingObserverSuperClass();
 		}catch(error) {
 			this.showLog(this.driveDomain);
 			this.showLog(error);
@@ -175,8 +175,9 @@ DriveOff.prototype = {
 	bindOpenFoodIconEvent:function (){
 		// SAVE "this" reference for .on local use to avoir conflict between 2 different "this" references
 		var DriveOffLocal = this;
-		
-		$(".driveoff-openfood").on("click",function(){
+		console.log("binding click");
+		$(".driveoff-openfood").on("click",function(e){
+			e.preventDefault();
 			console.log("Openfood details");
 			$("#driveoff-productlist").empty();
 			$("#driveoff-productlist").html("<div id='driveoff-spinner'>"+chrome.i18n.getMessage("messageDatacollection")+"</div>");

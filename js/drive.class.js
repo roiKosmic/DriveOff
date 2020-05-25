@@ -19,6 +19,8 @@ Drive.prototype = {
 	className:'',
 	currentDriveObj:'',
 	
+	clickImgFileHTML:'',
+	
 	searchTerms:'',
 	EAN:'',
 	quantity:'',
@@ -39,7 +41,7 @@ Drive.prototype = {
 		}
 	},
 	
-	addingObserver: function(){
+	addingObserverSuperClass: function(){
 		var localThis = this;
 		
 		if($( localThis.selector ).length){
@@ -64,8 +66,11 @@ Drive.prototype = {
 		}
 	},
 	
-	addingExtension:function(){
+	addingExtensionSuperClass:function(){
+		var localThis = this;
 		this.addingExtension();
+		console.log("binding after adding extension");
+		localThis.DriveOffLocal.bindOpenFoodIconEvent();
 	},
 	
 	getQueryURL:function(elementHTML){

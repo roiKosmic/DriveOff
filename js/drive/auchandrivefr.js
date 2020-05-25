@@ -18,7 +18,7 @@ auchandrivefr.prototype.localMutationObserver=function(mutations,localThis){
 										
 						if( $node.hasClass( "product-item" ) ) {
 							console.log("product inserted in DOM");
-							$node.find(".product-item__shortcuts").append("<img class='product-item__shortcutsButton driveoff-openfood' src='"+localThis.DriveOffLocal.clickImgFile+"'>");
+							$node.find(".product-item__shortcuts").append("<img class=' driveoff-openfood' src='"+localThis.DriveOffLocal.clickImgFile+"'>");
 						}
 					});
 				}
@@ -27,7 +27,7 @@ auchandrivefr.prototype.localMutationObserver=function(mutations,localThis){
   
 auchandrivefr.prototype.addingExtension = function(){
 	//Ajout dans la liste des produits sur le liste
-	$(".product-item__shortcuts").append("<img class='product-item__shortcutsButton driveoff-openfood' src='"+this.DriveOffLocal.clickImgFile+"'>");
+	$(".product-item__shortcuts").append("<img class='driveoff-openfood' src='"+this.DriveOffLocal.clickImgFile+"'>");
 		
 	//Ajout dans le cas d'une liste
 	if ( $( ".operations-area" ).length ) {
