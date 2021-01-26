@@ -18,7 +18,6 @@
 			"css": ["/css/myStyle.css"],
 			"run_at": "document_end",
             "js": [
-                    "/js/external/jquery.js",
 					"/js/external/jbarcode.js",
 					"/js/carrefourDrive.js",
 					"/js/auchanDrive.js",
