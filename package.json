@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "web-ext run --target=firefox-desktop --target=chromium --verbose",
-    "start:firefox": "web-ext run",
-    "start:chromium": "web-ext run --target=chromium"
+    "start:firefox": "web-ext run --verbose",
+    "start:chromium": "web-ext run --target=chromium  --verbose"
   }
 }
