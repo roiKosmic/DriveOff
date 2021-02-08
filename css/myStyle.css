@@ -17,38 +17,35 @@
 	display: grid;
 	grid-template: auto auto / repeat(3, auto);
 	justify-content: stretch;
-	/* align-items: center;
-	justify-items: stretch; */
-	border: .25em solid hsl(0, 0%, 95%);
+	border: .25em solid hsl(0, 0%, 97%);
 	border-radius: .25em;
 	background-color: #fff;
-	margin: 1em;
+	margin: 2em;
 	padding: 0;
-	box-shadow: .1em .1em .2em hsla(0, 0%, 0%, .35), inset .1em .1em .1em .05em hsl(0, 0%, 85%);
+	box-shadow: .1em .1em .2em hsla(0, 0%, 0%, .25), 
+		inset .1em .1em .1em .05em hsl(0, 0%, 85%);
+	cursor: help;
 }
 .driveoff_scores:not(:empty)::before {
 	content: 'Open Food Facts';
 	display: block;
 	grid-column: 1 /4;
 	grid-row: -2 / -1;
-	font-size: .85em;
+	font-size: .9em;
 	font-weight: 500;
-	font-family: sans-serif;
-	padding: .5em .5em .1em 3em;
-	background-color:  hsl(0, 0%, 95%);
-	color: hsl(0, 0%, 40%);
-	/* color: #fff;
-	text-shadow: .1em .1em .1em red; */
+	font-family: 'Arial', sans-serif;
+	padding: .65em .5em .1em 3em;
+	background-color:  hsl(0, 0%, 97%);
+	color: hsl(0, 0%, 42%);
 	background-image: url('https://static.openfoodfacts.org/images/favicon/favicon.ico');
-	background-size: 1.5em;
+	background-size: 1.75em;
 	background-repeat: no-repeat;
-	background-position: .75em center;
+	background-position: .75em bottom;
 	border-radius: .25em .25em 0 0;
 } 
 .driveoff_scores img {
-	width: 100%;
-	max-height: 5em;
-	max-width: calc(100% - 1em);
+	width: calc(100% - 1.5em);
+	height: 4.5em;
 	object-fit: contain;
 	margin: 1em .75em;
 }
@@ -56,26 +53,5 @@
 	margin: 1em 0;
 }
 .driveoff_list .driveoff_scores img {
-	max-height: 3.5em;
-}
-
-/* Animations to fade the snackbar in and out */
-@-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+	height: 3.5em;
 }

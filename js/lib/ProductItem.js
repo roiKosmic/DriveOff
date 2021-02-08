@@ -167,15 +167,30 @@ class ProductItem extends DOFFNode {
   }
 
   get novaImg () {
-    return `https://static.openfoodfacts.org/images/attributes/nova-group-${this.novaGrade}.svg`
+    const img = document.createElement('img')
+    img.classList.add('novascore')
+    img.width = 68
+    img.height = 130
+    img.src = `https://static.openfoodfacts.org/images/attributes/nova-group-${this.novaGrade}.svg`
+    return img
   }
 
   get ecoScoreImg () {
-    return `https://static.openfoodfacts.org/images/attributes/ecoscore-${this.ecoScoreGrade}.svg`
+    const img = document.createElement('img')
+    img.classList.add('ecoscore')
+    img.width = 274
+    img.height = 130
+    img.src = `https://static.openfoodfacts.org/images/attributes/ecoscore-${this.ecoScoreGrade}.svg`
+    return img
   }
 
   get nutriScoreImg () {
-    return `https://static.openfoodfacts.org/images/attributes/nutriscore-${this.nutriScoreGrade}.svg`
+    const img = document.createElement('img')
+    img.classList.add('nutriscore')
+    img.width = 240
+    img.height = 130
+    img.src = `https://static.openfoodfacts.org/images/attributes/nutriscore-${this.nutriScoreGrade}.svg`
+    return img
   }
 
   completeCard () {
@@ -183,20 +198,15 @@ class ProductItem extends DOFFNode {
     const el = this._el
     el.scores.innerHTML = ''
 
-    const nutriscore = document.createElement('img')
-    nutriscore.id = 'nutriscore'
-    nutriscore.src = this.nutriScoreImg
+    const nutriscore = this.nutriScoreImg
     nutriscore.alt = `Nutri Score : ${this.nutriScoreGrade.toUpperCase()} ${this.nutriscore_score ? `(${Number(this.nutriscore_score)} pts)` : ''}`
     el.scores.appendChild(nutriscore)
 
-    const novascore = document.createElement('img')
-    novascore.id = 'novascore'
-    novascore.src = this.novaImg
+    const novascore = this.novaImg
     novascore.alt = `Nova : ${this.novaGrade}`
     el.scores.appendChild(novascore)
 
-    const ecoscore = document.createElement('img')
-    ecoscore.src = this.ecoScoreImg
+    const ecoscore = this.ecoScoreImg
     ecoscore.alt = `Eco Score : ${this.ecoScoreGrade.toUpperCase()} ${this.ecoscore_score ? `(${Number(this.ecoscore_score).toFixed(2)} pts)` : ''}`
     el.scores.appendChild(ecoscore)
 
