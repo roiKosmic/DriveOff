@@ -21,9 +21,7 @@ Ajoute sur les fiches produits les informations suivantes :
 * [ ] Additifs
 * [ ] Code-barre
 
-
-
-L'extension utilise les données d'Open Food Facts https://fr.openfoodfacts.org/ et la librairie de génération de code-barres jsBarcode https://github.com/lindell/JsBarcode
+L'extension utilise les données d'[Open Food Facts](https://fr.openfoodfacts.org/) et la librairie de génération de code-barres [jsBarcode](https://github.com/lindell/JsBarcode)
 
 ## Installation
 
@@ -51,8 +49,9 @@ _**DriveOFF** n'est pas encore disponible sur les store d'extensions, l'installa
 
 ## Liste des drive compatibles
 
-* [-] auchan.fr
-* [-] bio.coop
+* [x] auchan.fr (*fiches produit uniquement*)
+* [x] bio.coop (*fiches produit uniquement*)
 * [x] carrefour.fr
+* [ ] cora.fr
 * [x] intermarche.com
 * [ ] leclercdrive.fr

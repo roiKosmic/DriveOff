@@ -59,7 +59,7 @@ drivesList.push(class Fr_MonMagasin extends Drive {
       name: 'h1',
       mainDescription: '.informations-generales',
       description: '.informations',
-      ean: () => /product\/([0-9]{13})/i.exec(new URL(document.URL).pathname)[1]
+      ean: () => /product\/([0-9]{8,13})/i.exec(new URL(document.URL).pathname)[1]
     },
     listView: {
       base: [
