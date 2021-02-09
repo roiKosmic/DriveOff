@@ -28,14 +28,22 @@ const uselessWords = [
 class ProductItem extends DOFFNode {
   constructor (data) {
     super(data)
-    this.scrap()
     this._el.base.classList.add('driveoff_product')
+    this.scrap()
     if (this.ean) this.fetchOFF()
-    console.debug('ean', this.ean)
   }
 
   get name () {
     if (this._el.name) return this._el.name.innerText
+  }
+
+  get observerConfig () {
+    return {
+      subtree: true,
+      attributes: true,
+      childList: true,
+      characterData: true
+    }
   }
 
   get searchQuery () {
@@ -58,43 +66,37 @@ class ProductItem extends DOFFNode {
   }
 
   mutation (mutation) {
-    console.debug('Product mutation', mutation.type, this.ean)
     if (!this.ean) {
       this.scrap()
       if (this.ean) this.fetchOFF()
     }
-    this.completeCard()
   }
 
   scrap () {
     const { ean, mainDescription, name } = this._structure
 
-    if (ean) {
+    if (ean && !this.ean) {
+      let qean
       switch (typeof ean) {
         case 'string' :
-          this.ean = this._el.base.querySelector(ean)
-          if (this.ean) this.ean = this.ean.innerText
-          else this.ean = false
+          qean = this._el.base.querySelector(ean)
+          if (qean) this.ean = qean.innerText
           break
         case 'function':
-          this.ean = ean(this._el.base)
+          qean = ean(this._el.base)
           break
       }
+      if (qean && /^[0-9]{8,13}$/.test(qean)) this.ean = qean
     }
 
-    if (mainDescription === '&') this._el.mainDescription = this._el.base
-    else this._el.mainDescription = this._el.base.querySelector(mainDescription)
+    if (!this._el.mainDescription) {
+      if (mainDescription === '&') this._el.mainDescription = this._el.base
+      else this._el.mainDescription = this._el.base.querySelector(mainDescription)
+    }
 
-    this._el.name = this._el.base.querySelector(name)
-    if (this._el.name) this._el.name.classList.add('driveoff_name')
-
-    this._el.scores = this._el.base.querySelector('.driveoff_scores')
-    if (!this._el.scores) {
-      this._el.scores = document.createElement('div')
-      this._el.scores.classList.add('driveoff_scores')
-      if (this._el.mainDescription) {
-        this._el.mainDescription.appendChild(this._el.scores)
-      }
+    if (!this._el.name) {
+      this._el.name = this._el.base.querySelector(name)
+      if (this._el.name) this._el.name.classList.add('driveoff_name')
     }
   }
 
@@ -117,8 +119,8 @@ class ProductItem extends DOFFNode {
       .then(data => {
         if (!data || !data.products || !data.products.length) throw new Error('No result')
         this.extract(data.products[0])
+        this.completeCard()
       })
-      .then(() => this.completeCard())
   }
 
   fetchOFF () {
@@ -141,10 +143,10 @@ class ProductItem extends DOFFNode {
           return response.json()
         })
         .then(data => {
-          if (!data.product) reject(new Error('No Result'))
+          if (!data.product) return reject(new Error('No Result'))
           this.extract(data.product)
+          this.completeCard()
         })
-        .then(() => this.completeCard())
     })
   }
 
@@ -168,7 +170,7 @@ class ProductItem extends DOFFNode {
 
   get novaImg () {
     const img = document.createElement('img')
-    img.classList.add('novascore')
+    img.classList.add('driveoff_novascore')
     img.width = 68
     img.height = 130
     img.src = `https://static.openfoodfacts.org/images/attributes/nova-group-${this.novaGrade}.svg`
@@ -177,7 +179,7 @@ class ProductItem extends DOFFNode {
 
   get ecoScoreImg () {
     const img = document.createElement('img')
-    img.classList.add('ecoscore')
+    img.classList.add('driveoff_ecoscore')
     img.width = 274
     img.height = 130
     img.src = `https://static.openfoodfacts.org/images/attributes/ecoscore-${this.ecoScoreGrade}.svg`
@@ -186,7 +188,7 @@ class ProductItem extends DOFFNode {
 
   get nutriScoreImg () {
     const img = document.createElement('img')
-    img.classList.add('nutriscore')
+    img.classList.add('driveoff_nutriscore')
     img.width = 240
     img.height = 130
     img.src = `https://static.openfoodfacts.org/images/attributes/nutriscore-${this.nutriScoreGrade}.svg`
@@ -196,20 +198,34 @@ class ProductItem extends DOFFNode {
   completeCard () {
     if (!this.ean) return false
     const el = this._el
-    el.scores.innerHTML = ''
 
-    const nutriscore = this.nutriScoreImg
-    nutriscore.alt = `Nutri Score : ${this.nutriScoreGrade.toUpperCase()} ${this.nutriscore_score ? `(${Number(this.nutriscore_score)} pts)` : ''}`
-    el.scores.appendChild(nutriscore)
+    if (el.mainDescription) {
+      el.scores = el.mainDescription.querySelector('.driveoff_scores')
+      if (!el.scores) {
+        el.scores = document.createElement('div')
+        el.scores.classList.add('driveoff_scores')
+        if (el.mainDescription) {
+          el.mainDescription.appendChild(el.scores)
+        }
+      }
+    }
 
-    const novascore = this.novaImg
-    novascore.alt = `Nova : ${this.novaGrade}`
-    el.scores.appendChild(novascore)
+    if (el.scores) {
+      el.scores.innerHTML = ''
 
-    const ecoscore = this.ecoScoreImg
-    ecoscore.alt = `Eco Score : ${this.ecoScoreGrade.toUpperCase()} ${this.ecoscore_score ? `(${Number(this.ecoscore_score).toFixed(2)} pts)` : ''}`
-    el.scores.appendChild(ecoscore)
+      const nutriscore = this.nutriScoreImg
+      nutriscore.alt = `Nutri Score: ${this.nutriScoreGrade.toUpperCase()} ${this.nutriscore_score ? `(${Number(this.nutriscore_score)} pts)` : ''}`
+      el.scores.appendChild(nutriscore)
 
-    el.scores.title = [nutriscore.alt, novascore.alt, ecoscore.alt].join('\n')
+      const novascore = this.novaImg
+      novascore.alt = `Nova : ${this.novaGrade}`
+      el.scores.appendChild(novascore)
+
+      const ecoscore = this.ecoScoreImg
+      ecoscore.alt = `Eco Score : ${this.ecoScoreGrade.toUpperCase()} ${this.ecoscore_score ? `(${Number(this.ecoscore_score).toFixed(2)} pts)` : ''}`
+      el.scores.appendChild(ecoscore)
+
+      el.scores.title = [nutriscore.alt, novascore.alt, ecoscore.alt].join('\n')
+    }
   }
 }

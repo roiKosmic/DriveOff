@@ -2,24 +2,41 @@
 class ProductList extends DOFFNode {
   constructor (data) {
     super(data)
-    this.products = []
     this.detectElements()
     this._el.base.classList.add('driveoff_list')
   }
 
+  get observerConfig () {
+    return {
+      subtree: true,
+      attributes: false,
+      childList: true,
+      characterData: true
+    }
+  }
+
   addProduct (base) {
     if (base.classList.contains('driveoff_product')) return false
-    this.products.push(new ProductItem({
+    return new ProductItem({
       _structure: this._structure.product,
       _el: { base },
       _drive: this._drive
-    }))
+    })
   }
 
   mutation (mutation) {
-    console.debug('List mutation', mutation.type)
     if (mutation.type === 'childList') {
-      this.detectElements()
+      const { product } = this._structure
+      const addedNodes = Array.from(mutation.addedNodes)
+      if (addedNodes.length) {
+        addedNodes.forEach(node => {
+          if (node && node.classList && !Array.from(node.classList).find(c => /^driveoff_/.test(c))) {
+            if (product.base && node.matches(product.base)) {
+              this.addProduct(node)
+            }
+          }
+        })
+      }
     }
   }
 

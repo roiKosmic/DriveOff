@@ -14,8 +14,6 @@ class Drive extends DOFFNode {
 
   constructor () {
     super()
-    this.products = []
-    this.productLists = []
     this.detectElements()
   }
 
@@ -23,28 +21,49 @@ class Drive extends DOFFNode {
     return this.constructor.driveName
   }
 
+  get observerConfig () {
+    return {
+      subtree: true,
+      attributes: true,
+      childList: true,
+      characterData: true
+    }
+  }
+
   addProduct (base) {
     if (base.classList.contains('driveoff_product')) return false
-    this.products.push(new ProductItem({
+    return new ProductItem({
       _structure: this._structure.productView,
       _el: { base },
       _drive: this
-    }))
+    })
   }
 
   addList (base) {
     if (base.classList.contains('driveoff_list')) return false
-    this.products.push(new ProductList({
+    return new ProductList({
       _structure: this._structure.listView,
       _el: { base },
       _drive: this
-    }))
+    })
   }
 
   mutation (mutation) {
-    console.debug('Drive mutation', mutation.type)
     if (mutation.type === 'childList') {
-      this.detectElements()
+      const { productView, listView } = this._structure
+      const addedNodes = Array.from(mutation.addedNodes)
+      if (addedNodes.length) {
+        addedNodes.forEach(node => {
+          if (node && node.classList && !Array.from(node.classList).find(c => /^driveoff_/.test(c))) {
+            if (listView && listView.base && node.matches(listView.base)) this.addList(node)
+            if (productView && productView.base && node.matches(productView.base)) this.addProduct(node)
+          }
+        })
+      }
+    } else if (mutation.type === 'attributes') {
+      if (mutation.target.matches('body')) {
+        this.detectElements()
+      }
     }
   }
 

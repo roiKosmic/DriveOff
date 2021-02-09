@@ -1,9 +1,3 @@
-const observerConfig = {
-  attributes: true,
-  childList: true,
-  characterData: true
-}
-
 class DOFFNode {
   constructor (data) {
     this.extract(data)
@@ -11,7 +5,7 @@ class DOFFNode {
       mutations.forEach(mutation => this.mutation(mutation))
     })
     if (!this._el) this._el = { base: document.body }
-    this._observer.observe(this._el.base, observerConfig)
+    this._observer.observe(this._el.base, this.observerConfig)
     if (!this._structure) this._structure = this.constructor.structure || {}
   }
 
