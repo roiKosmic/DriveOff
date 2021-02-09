@@ -52,6 +52,7 @@ _**DriveOFF** n'est pas encore disponible sur les store d'extensions, l'installa
 ## Liste des drive compatibles
 
 * [-] auchan.fr
+* [-] bio.coop
 * [x] carrefour.fr
 * [x] intermarche.com
 * [ ] leclercdrive.fr

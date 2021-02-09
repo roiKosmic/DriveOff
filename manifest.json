@@ -26,6 +26,7 @@
         "/js/lib/ProductList.js",
         "/js/lib/Drive.js",
         "/js/drives/Auchan.js",
+        "/js/drives/Biocoop.js",
         "/js/drives/Carrefour.js",
         "/js/drives/Intermarche.js",
         "/js/external/jbarcode.js",
