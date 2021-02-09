@@ -14,7 +14,7 @@
 
     "content_scripts": [
         {
-            "matches": ["https://www.auchandrive.fr/*","https://*.leclercdrive.fr/*", "https://*.carrefour.fr/*"],
+            "matches": ["https://www.auchandrive.fr/*", "https://www.auchan.fr/*","https://*.leclercdrive.fr/*", "https://*.carrefour.fr/*"],
 			"css": ["/css/myStyle.css"],
 			"run_at": "document_end",
             "js": [
