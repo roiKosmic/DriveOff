@@ -11,7 +11,7 @@ drivesList.push(class Fr_Carrefour extends Drive {
       mainDescription: '.main-details__right',
       // description: '.ProductInformations__MainWrapper-sc-1vg3q1s-0',
       ean: () => {
-        return Number(/p\/.*([0-9]{8,13})/i.exec(new URL(document.URL).pathname)[1])
+        return Number(/p\/.*-([0-9]{13})/i.exec(new URL(document.URL).pathname)[1])
       }
     },
     listView: {
