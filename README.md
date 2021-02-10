@@ -23,6 +23,13 @@ Ajoute sur les fiches produits les informations suivantes :
 
 L'extension utilise les données d'[Open Food Facts](https://fr.openfoodfacts.org/) et la librairie de génération de code-barres [jsBarcode](https://github.com/lindell/JsBarcode)
 
+## Build
+
+```sh
+yarn install
+yarn build
+```
+
 ## Installation
 
 _**DriveOFF** n'est pas encore disponible sur les store d'extensions, l'installation se fait depuis les sources._
