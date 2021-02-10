@@ -9,8 +9,7 @@
   },
   "description": "Add Open Food Facts information when ordering on line !",
   "permissions": [
-    "*://*.openfoodfacts.org/*",
-    "storage"
+    "*://*.openfoodfacts.org/*"
   ],
   "content_scripts": [
     {
