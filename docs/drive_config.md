@@ -48,29 +48,31 @@ object
 
 ```js
 drivesList.push(class Fr_MonMagasin extends Drive {
-  static driveName = 'Mon Magasin' 
-  static domain = /monmagasin\.fr$/
-  static lang = 'fr'
-  static country = 'france'
+  static get driveName () { return 'Mon Magasin' }
+  static get domain () { return /monmagasin\.fr$/}
+  static get lang () { return 'fr'}
+  static get country () { return 'france'}
 
-  static structure = {
-    productView: {
-      base: 'article.produit',
-      name: 'h1',
-      mainDescription: '.informations-generales',
-      description: '.informations',
-      ean: () => /product\/([0-9]{8,13})/i.exec(new URL(document.URL).pathname)[1]
-    },
-    listView: {
-      base: [
-        '.catalog-produits',
-        '.carousel-produits'
-      ],
-      product: {
-        base: 'li.produit',
-        name: '.name',
+  static get structure () { 
+    return {
+      productView: {
+        base: 'article.produit',
+        name: 'h1',
         mainDescription: '.informations-generales',
-        ean: base => base.dataset.id
+        description: '.informations',
+        ean: () => /product\/([0-9]{8,13})/i.exec(new URL(document.URL).pathname)[1]
+      },
+      listView: {
+        base: [
+          '.catalog-produits',
+          '.carousel-produits'
+        ],
+        product: {
+          base: 'li.produit',
+          name: '.name',
+          mainDescription: '.informations-generales',
+          ean: base => base.dataset.id
+        }
       }
     }
   }
