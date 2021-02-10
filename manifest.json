@@ -1,36 +1,39 @@
 {
-    "name": "Drive Off",
-    "version": "0.4.4",
-    "icons": {
-        "16": "/img/icons/Drive_Off_1616.png",
-        "48": "/img/icons/Drive_Off_4848.png",
-        "128": "/img/icons/Drive_Off_128128.png"
-    },
-
-    "description": "Add Open Food Facts information when ordering on line !",
-    "permissions": [
-        "*://*.openfoodfacts.org/*"
-    ],
-
-    "content_scripts": [
-        {
-            "matches": ["https://www.auchandrive.fr/*", "https://www.auchan.fr/*","https://*.leclercdrive.fr/*", "https://*.carrefour.fr/*"],
-			"css": ["/css/myStyle.css"],
-			"run_at": "document_end",
-            "js": [
-                    "/js/external/jquery.js",
-					"/js/external/jbarcode.js",
-					"/js/carrefourDrive.js",
-					"/js/auchanDrive.js",
-					"/js/leclercDrive.js",
-                    "/js/content_script.js"
-                ]
-        }
-    ],
-	
-	"web_accessible_resources":[
-		"/img/*"
-	],
-
-    "manifest_version": 2
+  "manifest_version": 2,
+  "name": "DriveOFF",
+  "version": "0.5.0.0",
+  "icons": {
+    "16": "/img/icons/Drive_Off_1616.png",
+    "48": "/img/icons/Drive_Off_4848.png",
+    "128": "/img/icons/Drive_Off_128128.png"
+  },
+  "description": "Add Open Food Facts information when ordering online.",
+  "permissions": [
+    "*://*.openfoodfacts.org/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [ "https://*/*" ],
+      "css": [
+        "/css/myStyle.css"
+      ],
+      "run_at": "document_idle",
+      "js": [
+        "/js/external/slug.js",
+        "/js/lib/DOFFNode.js",
+        "/js/lib/ProductItem.js",
+        "/js/lib/ProductList.js",
+        "/js/lib/Drive.js",
+        "/js/drives/Auchan.js",
+        "/js/drives/Biocoop.js",
+        "/js/drives/Carrefour.js",
+        "/js/drives/Intermarche.js",
+        "/js/external/jbarcode.js",
+        "/js/content_script.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "/img/*"
+  ]
 }

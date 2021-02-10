@@ -1,0 +1,32 @@
+{
+  "name": "driveoff",
+  "version": "0.5.0.0",
+  "repository": "git@github.com:clovfr/DriveOff.git",
+  "author": "Clovis Gauzy <github.788acf@clovisgauzy.fr>",
+  "private": true,
+  "devDependencies": {
+    "standard": "^16.0.3",
+    "web-ext": "^5.5.0"
+  },
+  "scripts": {
+    "start": "web-ext run --target=firefox-desktop --target=chromium --verbose",
+    "start:firefox": "web-ext run --verbose",
+    "start:chromium": "web-ext run --target=chromium  --verbose",
+    "build": "web-ext build"
+  },
+  "webExt": {
+    "ignoreFiles": [
+      "package.json",
+      "package-lock.json",
+      "yarn.lock",
+      "yarn-error.log",
+      "docs",
+      "README.md",
+      "builds"
+    ],
+    "build": {
+      "overwriteDest": true
+    },
+    "artifactsDir": "./builds"
+  } 
+}
