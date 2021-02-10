@@ -1,6 +1,6 @@
 {
   "name": "driveoff",
-  "version": "0.4.999.0",
+  "version": "0.5.0.0",
   "repository": "git@github.com:clovfr/DriveOff.git",
   "author": "Clovis Gauzy <github.788acf@clovisgauzy.fr>",
   "private": true,
