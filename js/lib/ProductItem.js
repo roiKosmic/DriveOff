@@ -173,7 +173,7 @@ class ProductItem extends DOFFNode {
     img.classList.add('driveoff_novascore')
     img.width = 68
     img.height = 130
-    img.src = `https://static.openfoodfacts.org/images/attributes/nova-group-${this.novaGrade}.svg`
+    img.src = chrome.runtime.getURL(`img/nova-group-${this.novaGrade}.svg`)
     return img
   }
 
@@ -182,7 +182,7 @@ class ProductItem extends DOFFNode {
     img.classList.add('driveoff_ecoscore')
     img.width = 274
     img.height = 130
-    img.src = `https://static.openfoodfacts.org/images/attributes/ecoscore-${this.ecoScoreGrade}.svg`
+    img.src = chrome.runtime.getURL(`img/ecoscore-${this.ecoScoreGrade}.svg`)
     return img
   }
 
@@ -191,7 +191,7 @@ class ProductItem extends DOFFNode {
     img.classList.add('driveoff_nutriscore')
     img.width = 240
     img.height = 130
-    img.src = `https://static.openfoodfacts.org/images/attributes/nutriscore-${this.nutriScoreGrade}.svg`
+    img.src = chrome.runtime.getURL(`img/nutriscore-${this.nutriScoreGrade}.svg`)
     return img
   }
 
