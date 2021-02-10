@@ -7,7 +7,7 @@
     "48": "/img/icons/Drive_Off_4848.png",
     "128": "/img/icons/Drive_Off_128128.png"
   },
-  "description": "Add Open Food Facts information when ordering on line !",
+  "description": "Add Open Food Facts information when ordering online.",
   "permissions": [
     "*://*.openfoodfacts.org/*"
   ],
