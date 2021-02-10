@@ -8,6 +8,7 @@ WebExtension for estore (drive) using Open Food Facts Database
 * [x] Chromium
 * [x] Opera
 * [x] Vivaldi
+* [ ] Edge (*non testé*)
 
 ## Introduction
 
@@ -25,8 +26,17 @@ L'extension utilise les données d'[Open Food Facts](https://fr.openfoodfacts.or
 
 ## Build
 
+**NPM**
+
 ```sh
-yarn install
+npm install
+npm run-script build
+```
+
+**Yarn**
+
+```sh
+yarn
 yarn build
 ```
 
